@@ -37,13 +37,14 @@ public abstract class AbstractConverter<T,U> implements Converter<T,U> {
     
     /**
      * Converts a provided list of input type into a list of output type.
+     * Does not include any objects of input type that are converted to null.
      * @param toParse a list of input type to parse
      * @return a list of output type
      */
     public List<U> convert(List<T> toParse) {
         List<U> list = new ArrayList<>();
         for (T object : toParse) {
-            if(convert(object) != null) {
+            if (convert(object) != null) {
                 list.add(convert(object));
             }
         }
