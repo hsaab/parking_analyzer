@@ -22,6 +22,7 @@ public class DelimitedFileReader implements Reader<String> {
             Scanner in = new Scanner(new File(filename));
             header = readHeader(in, headerRowNumber);
             contents = readContents(in);
+            in.close();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
