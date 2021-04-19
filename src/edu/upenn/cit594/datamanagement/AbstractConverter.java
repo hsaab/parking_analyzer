@@ -8,6 +8,7 @@ import java.util.List;
 // Base converter class to extend from.
 public abstract class AbstractConverter<T,U> implements Converter<T,U> {
     private Reader<T> reader;
+    private List<U> convertedContents;
     
     /**
      * Constructor
@@ -22,8 +23,12 @@ public abstract class AbstractConverter<T,U> implements Converter<T,U> {
      * @return a list of output type
      */
     public List<U> convert() {
-        if (reader == null) throw new IllegalStateException("reader cannot be null");
-        return convert(reader.readAll());
+        if (convertedContents == null) {
+            if (reader == null) throw new IllegalStateException("reader cannot be null");
+            convertedContents = convert(reader.readAll());
+        }
+        
+        return convertedContents;
     }
     
     /**

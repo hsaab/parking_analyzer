@@ -15,11 +15,7 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
     public DelimitedFileConverter(DelimitedFileReader reader, String inlineDelimiter) {
         super(reader);
         this.inlineDelimiter = inlineDelimiter;
-        if (reader.hasHeaderLine()) {
-            headers = splitLine(reader.getHeaderLine());
-        } else {
-            headers = null;
-        }
+        headers = splitLine(reader.getHeaderLine());
     }
     
     /**
@@ -28,7 +24,7 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
      * @return the array of values based on delimiter
      */
     protected List<String> splitLine(String line) {
+        if (line == null) return null;
         return Arrays.asList(line.split(inlineDelimiter));
     }
-    
 }

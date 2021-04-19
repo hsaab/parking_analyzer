@@ -20,10 +20,29 @@ public class PropertyCsvConverter extends DelimitedFileConverter<Property> {
     @Override
     public Property convert(String toParse) {
         List<String> values = super.splitLine(toParse);
-        String location = values.get(headers.indexOf("location"));
-        String stringNumberRooms = values.get(headers.indexOf("number_of_rooms"));
-        if (stringNumberRooms.equals("")) return null;
-        int numRooms = Integer.parseInt(stringNumberRooms);
-        return new Property(location, numRooms);
+        String stringValue = values.get(headers.indexOf("market_value"));
+        String stringLivableArea = values.get(headers.indexOf("total_livable_area"));
+        String stringZipcode = values.get(headers.indexOf("zip_code"));
+        
+        Double value = null;
+        try {
+            value = Double.parseDouble(stringValue);
+        } catch (NumberFormatException e) {
+            // do nothing
+        }
+        
+        Double area = null;
+        try {
+            area = Double.parseDouble(stringLivableArea);
+        } catch (NumberFormatException e) {
+            // do nothing
+        }
+    
+        String zipcode = stringZipcode;
+        if (zipcode.length() > 5) {
+            zipcode = stringZipcode.substring(0, 5);
+        }
+        
+        return new Property(value, area, zipcode);
     }
 }
