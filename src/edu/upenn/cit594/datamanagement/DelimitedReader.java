@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public abstract class DelimitedReader<T> extends Reader {
+public abstract class DelimitedReader<T> extends Reader<T> {
     public DelimitedReader(String fileName) {
         super(fileName);
     }
