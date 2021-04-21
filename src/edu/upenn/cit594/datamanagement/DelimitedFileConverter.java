@@ -19,8 +19,13 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
     public DelimitedFileConverter(DelimitedFileReader reader, String inlineDelimiter) {
         super(reader);
         this.inlineDelimiter = inlineDelimiter;
-        matchPattern = Pattern.compile("\"[^\"]*\"" + inlineDelimiter + "|[^"+ inlineDelimiter + "]+" +
-                "|(?=" + inlineDelimiter + "(" + inlineDelimiter + "|$))");
+        matchPattern = Pattern.compile( // matches with...
+                        "\"[^\"]*\"" + inlineDelimiter // double quotes followed by the inlineDelimiter ("Shapiro, Eric", => "Shapiro, Eric",)
+                                + "|" + "[^"+ inlineDelimiter + "]+" // anything that isn't the inlineDelimiter (test, => test)
+                                + "|" + "^" + inlineDelimiter // a starting inlineDelimiter (, => ,) this is for when start of line has no value
+                                + "|" + "(?=" + inlineDelimiter + "(" + inlineDelimiter + "|$))" // the inlineDelimiter followed by the inlineDelimiter or the end of the line (,, => "")
+        );
+    
         headers = splitLine(reader.getHeaderLine());
     }
     
@@ -32,21 +37,18 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
     protected List<String> splitLine(String line) {
         if (line == null) return null;
         List<String> output = new ArrayList<>();
-    
-        if (line.startsWith(inlineDelimiter)) {
-            output.add("");
-        }
                 
         Matcher matcher = matchPattern.matcher(line);
         while (matcher.find()) {
             String result = matcher.group();
-            if (result.startsWith("\"")) { // removes starting quote
+            
+            if (result.startsWith("\"")) {
                 result = result.substring(1);
             }
-            if (result.endsWith(",")) { // removes ending comma which is captured
+            if (result.endsWith(",")) {
                 result = result.substring(0, result.length() - 1);
             }
-            if (result.endsWith("\"")) { // removes  ending quote which is captured
+            if (result.endsWith("\"")) {
                 result = result.substring(0, result.length() - 1);
             }
             output.add(result.trim());
@@ -55,30 +57,22 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
     }
     
     /**
-     * Splits line into tokens based on inlineDelimiter.
+     * Splits line into list of string tokens based on inlineDelimiter.
      * @param line the line to split
-     * @return the tokens that are part of the line
+     * @return the tokens that were found
      */
     protected List<String> tokenize(String line) {
         if (line == null) return null;
         List<String> output = new ArrayList<>();
-        
-        if (line.startsWith(inlineDelimiter)) {
-            output.add("");
-        }
-        
         Matcher matcher = matchPattern.matcher(line);
+        // find all matches in provided line that correspond to matchPattern and add to output list
         while (matcher.find()) {
             String result = matcher.group();
-            if (result.startsWith("\"")) { // removes starting quote
-                result = result.substring(1);
-            }
-            if (result.endsWith(",")) { // removes ending comma which is captured
-                result = result.substring(0, result.length() - 1);
-            }
-            if (result.endsWith("\"")) { // removes  ending quote which is captured
-                result = result.substring(0, result.length() - 1);
-            }
+            // remove any leading or trailing quotes, inlineDelimiter and whitespace
+            if (result.startsWith("\"")) { result = result.substring(1); }
+            if (result.endsWith(inlineDelimiter)) { result = result.substring(0, result.length() - 1); }
+            if (result.endsWith("\"")) { result = result.substring(0, result.length() - 1); }
+            
             output.add(result.trim());
         }
         return output;
