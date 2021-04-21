@@ -2,6 +2,7 @@ package edu.upenn.cit594.datamanagement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 // Converter that takes in a Reader of the same input type
 // and converts from that type (eg JSONObject, String line) into domain type
@@ -18,11 +19,15 @@ public abstract class AbstractConverter<T,U> implements Converter<T,U> {
         this.reader = reader;
     }
     
+    public Reader<T> getReader() {
+        return reader;
+    }
+    
     /**
-     * Converts this converter's reader into a list of output type
+     * Converts this converter's reader into a list of objects of output type
      * @return a list of output type
      */
-    public List<U> convert() {
+    public List<U> convertToList() {
         if (convertedContents == null) {
             if (reader == null) throw new IllegalStateException("reader cannot be null");
             convertedContents = convert(reader.readAll());
@@ -30,6 +35,12 @@ public abstract class AbstractConverter<T,U> implements Converter<T,U> {
         
         return convertedContents;
     }
+    
+    /**
+     * Converts this converter's reader into a map of objects to objects of output type
+     * @return a map of object to output type
+     */
+    public abstract Map<?,U> convertToMap();
     
     /**
      * Converts a provided reader of input type into a list of output type.
@@ -49,8 +60,9 @@ public abstract class AbstractConverter<T,U> implements Converter<T,U> {
     public List<U> convert(List<T> toParse) {
         List<U> list = new ArrayList<>();
         for (T object : toParse) {
-            if (convert(object) != null) {
-                list.add(convert(object));
+            U convertedObject = convert(object);
+            if (convertedObject != null) {
+                list.add(convertedObject);
             }
         }
         

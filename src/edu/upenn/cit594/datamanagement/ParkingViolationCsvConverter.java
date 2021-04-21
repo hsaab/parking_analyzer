@@ -1,8 +1,11 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.data.Area;
 import edu.upenn.cit594.data.ParkingViolation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ParkingViolationCsvConverter extends DelimitedFileConverter<ParkingViolation>{
     
@@ -36,5 +39,19 @@ public class ParkingViolationCsvConverter extends DelimitedFileConverter<Parking
         
        
         return new ParkingViolation(fine, stringState, zipcode);
+    }
+    
+    /**
+     * Converts this reader's contents into a map of violation id to Violation
+     * @return map of id of violation to Violation
+     */
+    @Override
+    public Map<String, ParkingViolation> convertToMap() {
+        Map<String,ParkingViolation> map = new HashMap<>();
+        for (ParkingViolation violation: convertToList()) {
+            map.put(violation.getViolationId(), violation);
+        }
+        
+        return map;
     }
 }

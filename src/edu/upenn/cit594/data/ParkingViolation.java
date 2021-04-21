@@ -28,6 +28,10 @@ public class ParkingViolation {
         this.zipcode = zipcode;
     }
     
+    public String getViolationId() {
+        return violationId;
+    }
+    
     
     @Override
     public String toString() {

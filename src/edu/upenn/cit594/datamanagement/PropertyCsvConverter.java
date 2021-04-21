@@ -1,8 +1,11 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.data.Area;
 import edu.upenn.cit594.data.Property;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PropertyCsvConverter extends DelimitedFileConverter<Property> {
     
@@ -44,5 +47,10 @@ public class PropertyCsvConverter extends DelimitedFileConverter<Property> {
         }
         
         return new Property(value, area, zipcode);
+    }
+    
+    @Override
+    public Map<String, Property> convertToMap() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("convertToMap not supported");
     }
 }
