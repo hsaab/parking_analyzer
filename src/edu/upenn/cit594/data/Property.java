@@ -3,14 +3,19 @@ package edu.upenn.cit594.data;
 import java.util.Objects;
 
 public class Property {
-    Double marketValue;
-    Double totalLivableArea;
-    String zipcode;
+    public Double marketValue;
+    public Double totalLivableArea;
+    public String zipcode;
 
     public Property(Double marketValue, Double totalLivableArea, String zipcode) {
         this.marketValue = marketValue;
         this.totalLivableArea = totalLivableArea;
         this.zipcode = zipcode;
+        System.out.println("Property{" +
+                "marketValue=" + marketValue +
+                ", totalLivableArea=" + totalLivableArea +
+                ", zipcode='" + zipcode + '\'' +
+                '}');
     }
 
     @Override

@@ -1,15 +1,15 @@
 package edu.upenn.cit594.datamanagement;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public abstract class JSONReader<T> extends Reader<T> {
-    public JSONReader(String fileName) {
+public abstract class JSONFileReader<T> extends FileReader<T> {
+    public JSONFileReader(String fileName) {
         super(fileName);
     }
 
@@ -17,7 +17,7 @@ public abstract class JSONReader<T> extends Reader<T> {
         Object obj = null;
 
         try {
-            obj = new JSONParser().parse(new FileReader(this.fileName));
+            obj = new JSONParser().parse(new java.io.FileReader(this.fileName));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -28,8 +28,14 @@ public abstract class JSONReader<T> extends Reader<T> {
 
         Iterator<Map.Entry> iterator = JSONArray.iterator();
 
-        return createDataStore(iterator);
+        while (iterator.hasNext()) {
+            JSONObject rawParkingViolation = (JSONObject) iterator.next();
+
+            updateDataStore(rawParkingViolation);
+        }
+
+        return dataStore;
     }
 
-    public abstract T createDataStore(Iterator iterator);
+    public abstract void updateDataStore(JSONObject jsonObject);
 }
