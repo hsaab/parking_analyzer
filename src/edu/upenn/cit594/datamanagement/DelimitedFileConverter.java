@@ -19,7 +19,7 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
     public DelimitedFileConverter(DelimitedFileReader reader, String inlineDelimiter) {
         super(reader);
         this.inlineDelimiter = inlineDelimiter;
-        matchPattern = Pattern.compile("\\s*\"[^\"]*\"\\s*|[^"+ inlineDelimiter + "]+" +
+        matchPattern = Pattern.compile("\"[^\"]*\"" + inlineDelimiter + "|[^"+ inlineDelimiter + "]+" +
                 "|(?=" + inlineDelimiter + "(" + inlineDelimiter + "|$))");
         headers = splitLine(reader.getHeaderLine());
     }
@@ -40,6 +40,45 @@ public abstract class DelimitedFileConverter<U> extends AbstractConverter<String
         Matcher matcher = matchPattern.matcher(line);
         while (matcher.find()) {
             String result = matcher.group();
+            if (result.startsWith("\"")) { // removes starting quote
+                result = result.substring(1);
+            }
+            if (result.endsWith(",")) { // removes ending comma which is captured
+                result = result.substring(0, result.length() - 1);
+            }
+            if (result.endsWith("\"")) { // removes  ending quote which is captured
+                result = result.substring(0, result.length() - 1);
+            }
+            output.add(result.trim());
+        }
+        return output;
+    }
+    
+    /**
+     * Splits line into tokens based on inlineDelimiter.
+     * @param line the line to split
+     * @return the tokens that are part of the line
+     */
+    protected List<String> tokenize(String line) {
+        if (line == null) return null;
+        List<String> output = new ArrayList<>();
+        
+        if (line.startsWith(inlineDelimiter)) {
+            output.add("");
+        }
+        
+        Matcher matcher = matchPattern.matcher(line);
+        while (matcher.find()) {
+            String result = matcher.group();
+            if (result.startsWith("\"")) { // removes starting quote
+                result = result.substring(1);
+            }
+            if (result.endsWith(",")) { // removes ending comma which is captured
+                result = result.substring(0, result.length() - 1);
+            }
+            if (result.endsWith("\"")) { // removes  ending quote which is captured
+                result = result.substring(0, result.length() - 1);
+            }
             output.add(result.trim());
         }
         return output;
