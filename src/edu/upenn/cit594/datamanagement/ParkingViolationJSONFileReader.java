@@ -31,7 +31,7 @@ public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingV
         String plateId = rawObject.get("plate_id").toString();
         String state = rawObject.get("state").toString();
         String ticketNumber = rawObject.get("ticket_number").toString();
-        String zipcode = Utils.extractZipCodeValue(rawObject.get("zipcode").toString());
+        String zipcode = rawObject.get("zip_code").toString();
 
         return new ParkingViolation(date, fine, violation, plateId, state, ticketNumber, zipcode);
     }
