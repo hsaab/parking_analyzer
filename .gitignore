@@ -1,0 +1,6 @@
+*.csv
+*.txt
+*.json
+/out
+.idea
+/lib
