@@ -62,22 +62,21 @@ public class DataManagementTester {
     void testPropertyDelimitedFileReader() {
         // THIS TESTS TO MAKE SURE WE CAN GET THROUGH THE ORIGINAL FILE
         PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader(
-                "properties.csv", true, ",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)"
+                "properties.csv", true, ","
         );
 
         propertyDelimitedFileReader.read();
 
         List<Property> dataStore = propertyDelimitedFileReader.dataStore;
 
-
-        assertEquals(dataStore.get(0).zipcode, "191481303");
+        assertEquals(dataStore.get(0).zipcode, "19148");
     }
 
     @Test
     void testPropertyDelimitedFileReaderLite() {
         // THIS TESTS TO MAKE SURE WE ARE PARSING THROUGH THE LISTS OK
         PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader(
-                "properties-test.csv", true, ",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)"
+                "properties-test.csv", true, ","
         );
 
         propertyDelimitedFileReader.read();
@@ -85,15 +84,15 @@ public class DataManagementTester {
         List<Property> dataStore = propertyDelimitedFileReader.dataStore;
 
         assertEquals(dataStore.get(0).marketValue, 0.0);
-        assertEquals(dataStore.get(0).zipcode, "191475901");
+        assertEquals(dataStore.get(0).zipcode, "19147");
         assertEquals(dataStore.get(0).totalLivableArea, 0.0);
 
         assertEquals(dataStore.get(3).marketValue, Double.NaN);
-        assertEquals(dataStore.get(3).zipcode, "191041636");
+        assertEquals(dataStore.get(3).zipcode, "19104");
         assertEquals(dataStore.get(3).totalLivableArea, 0.0);
 
         assertEquals(dataStore.get(4).marketValue, 264800.0);
-        assertEquals(dataStore.get(4).zipcode, "191481303");
+        assertEquals(dataStore.get(4).zipcode, "19148");
         assertEquals(dataStore.get(4).totalLivableArea, 1800.0);
     }
 

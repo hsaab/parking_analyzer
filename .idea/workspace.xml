@@ -2,24 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c413e5f4-3258-4b29-b8a5-3e36fd22a63d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/FileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/PropertyDelimitedFileReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/Tokenizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parking_analyzer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/parking_analyzer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/data/ParkingViolation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/data/ParkingViolation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/JSONReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/JSONFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/PropertyDelimitedReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/Reader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/FileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/FileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/PropertyDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/PropertyDelimitedFileReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +48,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="JUnit.DataManagementTester.testParkingViolationJSONFileReader">
+  <component name="RunManager" selected="JUnit.DataManagementTester.testPropertyDelimitedFileReader">
     <configuration name="DataManagementTester.testAreaDelimitedFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parking_analyzer" />
       <extension name="coverage">
@@ -140,10 +131,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DataManagementTester.testParkingViolationJSONFileReader" />
-        <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReaderLite" />
         <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReader" />
+        <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReaderLite" />
         <item itemvalue="JUnit.DataManagementTester.testParkingViolationDelimitedFileReader" />
+        <item itemvalue="JUnit.DataManagementTester.testParkingViolationJSONFileReader" />
         <item itemvalue="JUnit.DataManagementTester.testAreaDelimitedFileReader" />
       </list>
     </recent_temporary>
@@ -178,22 +169,26 @@
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.829@0.23.1440.829" timestamp="1618980363392" />
-    <state width="1398" height="39" key="GridCell.Tab.0.bottom" timestamp="1618989235208">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="234" key="GridCell.Tab.0.bottom" timestamp="1619057802663">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
-    <state width="1398" height="39" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1618989235208" />
-    <state width="1398" height="39" key="GridCell.Tab.0.center" timestamp="1618989235208">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="39" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1619057802663" />
+    <state width="1398" height="234" key="GridCell.Tab.0.center" timestamp="1619057802663">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
-    <state width="1398" height="39" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1618989235208" />
-    <state width="1398" height="39" key="GridCell.Tab.0.left" timestamp="1618989235207">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="39" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1619057802663" />
+    <state width="1398" height="234" key="GridCell.Tab.0.left" timestamp="1619057802663">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
-    <state width="1398" height="39" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1618989235207" />
-    <state width="1398" height="39" key="GridCell.Tab.0.right" timestamp="1618989235208">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state width="1398" height="39" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1619057802663" />
+    <state width="1398" height="234" key="GridCell.Tab.0.right" timestamp="1619057802663">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
-    <state width="1398" height="39" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1618989235208" />
+    <state width="1398" height="39" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1619057802663" />
     <state x="424" y="341" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1618980848081">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
@@ -202,6 +197,14 @@
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="377" y="61" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.23.1440.829@0.23.1440.829" timestamp="1618986281138" />
+    <state x="375" y="201" width="689" height="472" key="find.popup" timestamp="1619055043050">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="375" y="201" width="689" height="472" key="find.popup/0.23.1440.831@0.23.1440.831" timestamp="1619055043050" />
+    <state x="385" y="178" width="670" height="676" key="search.everywhere.popup" timestamp="1619054778081">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="385" y="178" width="670" height="676" key="search.everywhere.popup/0.23.1440.831@0.23.1440.831" timestamp="1619054778081" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

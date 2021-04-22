@@ -22,7 +22,7 @@ public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<Lis
     }
 
     @Override
-    public void setHeaderIndices(List<String> headerList) {
+    public void setHeaderIndices() {
         // NO HEADERS FOR THE CSV FILE
     }
 
@@ -33,7 +33,7 @@ public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<Lis
         String plateId = dataList.get(3);
         String state = dataList.get(4);
         String ticketNumber = dataList.get(5);
-        String zipcode = dataList.size() == 7 ? dataList.get(6) : null;
+        String zipcode = Utils.extractZipCodeValue(dataList.get(6));
 
         return new ParkingViolation(date, fine, violation, plateId, state, ticketNumber, zipcode);
     }

@@ -7,30 +7,30 @@ import java.util.*;
 
 public abstract class DelimitedFileReader<T> extends FileReader<T> {
     boolean hasHeaders;
-    String delimitBy;
+    List<String> headerList;
+    Tokenizer tokenizer;
 
     public DelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
         super(fileName);
         this.hasHeaders = hasHeaders;
-        this.delimitBy = delimitBy;
+
+        this.tokenizer = new Tokenizer(delimitBy);
     }
 
     public T read() {
         String line = null;
-        List<String> headerList = null;
 
         try {
             BufferedReader br = new BufferedReader(new java.io.FileReader(this.fileName));
 
             if(this.hasHeaders) {
                 line = br.readLine();
-                headerList = Arrays.asList(line.split(this.delimitBy));
-
-                setHeaderIndices(headerList);
+                this.headerList = this.tokenizer.tokenize(line);
+                setHeaderIndices();
             }
 
             while((line = br.readLine()) != null) {
-                List<String> dataList = Arrays.asList(line.split(this.delimitBy));
+                List<String> dataList = this.tokenizer.tokenize(line);
 
                 updateDataStore(dataList);
             }
@@ -44,5 +44,5 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
     }
 
     public abstract void updateDataStore(List<String> dataArray);
-    public abstract void setHeaderIndices(List<String> headerList);
+    public abstract void setHeaderIndices();
 }

@@ -1,6 +1,7 @@
 package edu.upenn.cit594.datamanagement;
 
 import edu.upenn.cit594.data.Area;
+import edu.upenn.cit594.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +21,12 @@ public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Are
     }
 
     @Override
-    public void setHeaderIndices(List<String> headerList) {
+    public void setHeaderIndices() {
         // NO HEADERS FOR THE CSV FILE
     }
 
     public Area createArea(List<String> dataList) {
-        String zipcode = dataList.get(0);
+        String zipcode = Utils.extractZipCodeValue(dataList.get(0));
         int population = Integer.parseInt(dataList.get(1));
 
         return new Area(zipcode, population);

@@ -15,4 +15,6 @@ public abstract class FileReader<T> implements Reader<T> {
             throw new Error("File: " + this.fileName + " does not exist or cannot be read.");
         }
     }
+
+    public abstract T read();
 }

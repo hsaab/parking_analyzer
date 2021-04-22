@@ -26,24 +26,16 @@ public class PropertyDelimitedFileReader extends DelimitedFileReader<List<Proper
     }
 
     @Override
-    public void setHeaderIndices(List<String> headerList) {
-        this.zipcodeIndex = headerList.indexOf("zip_code");
-        this.totalLivableAreaIndex = headerList.indexOf("total_livable_area");
-        this.marketValueIndex = headerList.indexOf("market_value");
+    public void setHeaderIndices() {
+        this.zipcodeIndex = this.headerList.indexOf("zip_code");
+        this.totalLivableAreaIndex = this.headerList.indexOf("total_livable_area");
+        this.marketValueIndex = this.headerList.indexOf("market_value");
     }
 
     private Property createProperty(List<String> dataList) {
-        double marketValue = Utils.isExistingValue(dataList, this.marketValueIndex)
-                ? Double.parseDouble(dataList.get(this.marketValueIndex))
-                : Double.NaN;
-
-        double totalLivableArea = Utils.isExistingValue(dataList, totalLivableAreaIndex)
-                ? Double.parseDouble(dataList.get(this.totalLivableAreaIndex))
-                : Double.NaN;
-
-        String zipcode = Utils.isExistingValue(dataList, zipcodeIndex)
-                ? dataList.get(this.zipcodeIndex)
-                : null;
+        double marketValue = Utils.extractDoubleValueFromList(dataList, this.marketValueIndex);
+        double totalLivableArea = Utils.extractDoubleValueFromList(dataList, this.totalLivableAreaIndex);
+        String zipcode = Utils.extractZipcodeValueFromList(dataList, this.zipcodeIndex);
 
         return new Property(
                 marketValue,
