@@ -25,12 +25,12 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
 
             if(this.hasHeaders) {
                 line = br.readLine();
-                this.headerList = this.tokenizer.tokenize(line);
+                this.headerList = this.tokenizer.split(line);
                 setHeaderIndices();
             }
 
             while((line = br.readLine()) != null) {
-                List<String> dataList = this.tokenizer.tokenize(line);
+                List<String> dataList = this.tokenizer.split(line);
 
                 updateDataStore(dataList);
             }

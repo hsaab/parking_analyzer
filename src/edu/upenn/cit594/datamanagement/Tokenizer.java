@@ -24,7 +24,7 @@ public class Tokenizer {
      * @param line the line to split
      * @return the tokens that were found
      */
-    public List<String> tokenize(String line) {
+    public List<String> split(String line) {
         if (line == null) return null;
         List<String> output = new ArrayList<>();
         Matcher matcher = this.matchPattern.matcher(line);
