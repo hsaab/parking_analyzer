@@ -1,38 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cec5325e-5950-4d03-9ba9-e4f96f012f03" name="Default Changelist" comment="" />
+    <list default="true" id="c413e5f4-3258-4b29-b8a5-3e36fd22a63d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/Tokenizer.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="parking_analyzer" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1qqrl8nFNeza8mYHbs8XpiThPXa" />
+  <component name="ProjectId" id="1rSciKQmWLA98j9f52BBaLr8unn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="JUnit.DataManagementTester">
+    <configuration name="DataManagementTester" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataManagementTester.testParkingViolationDelimitedFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testParkingViolationDelimitedFileReader" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataManagementTester.testParkingViolationJSONFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testParkingViolationJSONFileReader" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataManagementTester.testPropertyDelimitedFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testPropertyDelimitedFileReader" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataManagementTester.testPropertyDelimitedFileReaderLite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testPropertyDelimitedFileReaderLite" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DataManagementTester" />
+        <item itemvalue="JUnit.DataManagementTester.testParkingViolationJSONFileReader" />
+        <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReader" />
+        <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReaderLite" />
+        <item itemvalue="JUnit.DataManagementTester.testParkingViolationDelimitedFileReader" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cec5325e-5950-4d03-9ba9-e4f96f012f03" name="Default Changelist" comment="" />
-      <created>1617818109938</created>
+      <changelist id="c413e5f4-3258-4b29-b8a5-3e36fd22a63d" name="Default Changelist" comment="" />
+      <created>1618973057872</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1617818109938</updated>
+      <updated>1618973057872</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618974947240">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.829@0.23.1440.829" timestamp="1618974947240" />
+    <state x="100" y="123" width="1240" height="629" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1618981567330">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="100" y="123" width="1240" height="629" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.829@0.23.1440.829" timestamp="1618981567330" />
+    <state x="533" y="150" key="#com.intellij.ide.util.MemberChooser" timestamp="1618975840858">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="533" y="150" key="#com.intellij.ide.util.MemberChooser/0.23.1440.829@0.23.1440.829" timestamp="1618975840858" />
+    <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1618980363392">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.829@0.23.1440.829" timestamp="1618980363392" />
+    <state width="1398" height="234" key="GridCell.Tab.0.bottom" timestamp="1619058573068">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state width="1398" height="39" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1619058573068" />
+    <state width="1398" height="234" key="GridCell.Tab.0.center" timestamp="1619058573067">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state width="1398" height="39" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1619058573067" />
+    <state width="1398" height="234" key="GridCell.Tab.0.left" timestamp="1619058573067">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state width="1398" height="39" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1619058573067" />
+    <state width="1398" height="234" key="GridCell.Tab.0.right" timestamp="1619058573067">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state width="1398" height="39" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
+    <state width="1398" height="234" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1619058573067" />
+    <state x="424" y="341" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1618980848081">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="424" y="341" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.23.1440.829@0.23.1440.829" timestamp="1618980848081" />
+    <state x="377" y="61" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1618986281138">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="377" y="61" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.23.1440.829@0.23.1440.829" timestamp="1618986281138" />
+    <state x="375" y="201" width="689" height="472" key="find.popup" timestamp="1619055043050">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="375" y="201" width="689" height="472" key="find.popup/0.23.1440.831@0.23.1440.831" timestamp="1619055043050" />
+    <state x="426" y="63" key="refactoring.ChangeSignatureDialog" timestamp="1619058262964">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="426" y="63" key="refactoring.ChangeSignatureDialog/0.23.1440.831@0.23.1440.831" timestamp="1619058262964" />
+    <state x="385" y="178" width="670" height="676" key="search.everywhere.popup" timestamp="1619054778081">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="385" y="178" width="670" height="676" key="search.everywhere.popup/0.23.1440.831@0.23.1440.831" timestamp="1619054778081" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java</url>
+          <line>32</line>
+          <properties class="edu.upenn.cit594.datamanagement.DataManagementTester" method="testParkingViolationDelimitedFileReader">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
