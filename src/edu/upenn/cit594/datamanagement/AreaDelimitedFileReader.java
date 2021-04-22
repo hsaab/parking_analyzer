@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Area>> {
-    AreaDelimitedFileReader(String fileName, boolean hasHeaders, String delimitedBy) {
+    public AreaDelimitedFileReader(String fileName, boolean hasHeaders, String delimitedBy) {
         super(fileName, hasHeaders, delimitedBy);
 
         dataStore = new HashMap<String, Area>();
