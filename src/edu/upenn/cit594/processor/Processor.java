@@ -4,7 +4,6 @@ import edu.upenn.cit594.data.*;
 import edu.upenn.cit594.datamanagement.DataStore;
 import edu.upenn.cit594.datamanagement.Reader;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +60,22 @@ public class Processor {
         System.out.println(zipcodeToFineMap);
         
     }
-    
+
+    public double calculateAverage(String zipcode, Calculator calculator) {
+        List<Property> properties = getData(propertyReader);
+
+        for (Property property : properties) {
+            if (property.zipcode.equals(zipcode)) {
+                calculator.sumAndCountMetric(property);
+            }
+        }
+
+        System.out.println(calculator.average());
+        return calculator.average();
+    }
+
     public double calculateAverageMarketValue(String zipcode) {
+        // Purely left in for testing purposes
         int countProperties = 0;
         double sumMarketValue = 0.0;
         List<Property> properties = getData(propertyReader);
@@ -73,10 +86,25 @@ public class Processor {
             }
         }
         System.out.println(sumMarketValue / countProperties);
-        
+
         return sumMarketValue / countProperties;
     }
-    
+
+    public double calculateAverageLivableArea(String zipcode) {
+        // Purely left in for testing purposes
+        int countProperties = 0;
+        double sumLivableArea = 0.0;
+        List<Property> properties = getData(propertyReader);
+        for (Property property : properties) {
+            if (property.zipcode.equals(zipcode)) {
+                countProperties++;
+                sumLivableArea += property.totalLivableArea;
+            }
+        }
+        System.out.println(sumLivableArea / countProperties);
+
+        return sumLivableArea / countProperties;
+    }
     
     /**
      * Gets data from readerToDataStoreMap based on provided reader.
