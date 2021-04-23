@@ -4,7 +4,7 @@ import java.io.File;
 
 public abstract class FileReader<T> implements Reader<T> {
     public String fileName;
-    T dataStore;
+    protected DataStore<T> dataStore;
 
     FileReader(String fileName) {
         this.fileName = fileName;
@@ -15,6 +15,6 @@ public abstract class FileReader<T> implements Reader<T> {
             throw new Error("File: " + this.fileName + " does not exist or cannot be read.");
         }
     }
-
-    public abstract T read();
+    
+    public abstract DataStore<T> read();
 }

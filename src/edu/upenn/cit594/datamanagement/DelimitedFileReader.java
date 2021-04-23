@@ -17,9 +17,10 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
         this.tokenizer = new Tokenizer(delimitBy);
     }
 
-    public T read() {
+    public DataStore<T> read() {
         String line = null;
-
+        if(dataStore != null) return dataStore;
+        initializeDataStore();
         try {
             BufferedReader br = new BufferedReader(new java.io.FileReader(this.fileName));
 
@@ -43,6 +44,7 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
         return dataStore;
     }
 
+    public abstract void initializeDataStore();
     public abstract void updateDataStore(List<String> dataArray);
     public abstract void setHeaderIndices();
 }

@@ -14,8 +14,8 @@ public class ProcessorTester {
                 "parking.csv", false, ","
         );
         Processor processor = new Processor(propertyDelimitedFileReader, areaDelimitedFileReader, parkingViolationDelimitedFileReader);
-        //processor.sumPopulations();
-        //processor.calculateTotalFinesPerCapita();
+        processor.sumPopulations();
+        processor.calculateTotalFinesPerCapita();
         processor.calculateAverageMarketValue("19144");
 
     }

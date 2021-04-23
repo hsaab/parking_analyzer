@@ -12,15 +12,18 @@ public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingV
 
     public ParkingViolationJSONFileReader(String fileName) {
         super(fileName);
-
-        dataStore = new ArrayList<ParkingViolation>();
+    }
+    
+    @Override
+    public void initializeDataStore() {
+        dataStore = new DataStore<>(new ArrayList<>());
     }
 
     @Override
     public void updateDataStore(JSONObject rawParkingViolation) {
         ParkingViolation convertedObject = createParkingViolation(rawParkingViolation);
 
-        dataStore.add(convertedObject);
+        dataStore.getData().add(convertedObject);
     }
 
     public ParkingViolation createParkingViolation(JSONObject rawObject) {

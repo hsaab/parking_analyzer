@@ -13,9 +13,10 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
         super(fileName);
     }
 
-    public T read() {
+    public DataStore<T> read() {
         Object obj = null;
-
+        if(dataStore != null) return dataStore;
+        initializeDataStore();
         try {
             obj = new JSONParser().parse(new java.io.FileReader(this.fileName));
         } catch (IOException e) {
@@ -36,6 +37,7 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
 
         return dataStore;
     }
-
+    
+    public abstract void initializeDataStore();
     public abstract void updateDataStore(JSONObject jsonObject);
 }
