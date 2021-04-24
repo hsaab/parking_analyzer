@@ -17,4 +17,5 @@ public abstract class FileReader<T> implements Reader<T> {
     }
     
     public abstract DataStore<T> read();
+    public abstract void initializeDataStore();
 }
