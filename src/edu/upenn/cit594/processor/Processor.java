@@ -25,7 +25,7 @@ public class Processor {
     
     public int sumPopulations() {
         int populationSum = 0;
-        Map<String, Area> areaMap = getData(areaReader);
+        Map<String, Area> areaMap = getReaderData(areaReader);
         
         for (Map.Entry<String, Area> entry : areaMap.entrySet()) {
             populationSum += entry.getValue().population;
@@ -37,8 +37,8 @@ public class Processor {
     
     public void calculateTotalFinesPerCapita() {
         Map<String,Double> zipcodeToFineMap = new TreeMap<>();
-        Map<String, Area> areaMap = getData(areaReader);
-        List<ParkingViolation> violations = getData(parkingViolationReader);
+        Map<String, Area> areaMap = getReaderData(areaReader);
+        List<ParkingViolation> violations = getReaderData(parkingViolationReader);
         for (ParkingViolation violation : violations) {
             if (areaMap.containsKey((violation.zipcode))) {
                 if (zipcodeToFineMap.containsKey(violation.zipcode)) {
@@ -65,7 +65,7 @@ public class Processor {
     public double calculateAverageMarketValue(String zipcode) {
         int countProperties = 0;
         double sumMarketValue = 0.0;
-        List<Property> properties = getData(propertyReader);
+        List<Property> properties = getReaderData(propertyReader);
         for (Property property : properties) {
             if (property.zipcode.equals(zipcode)) {
                 countProperties++;
@@ -79,16 +79,22 @@ public class Processor {
     
     
     /**
-     * Gets data from readerToDataStoreMap based on provided reader.
-     * Puts data from reader in readerToDataStoreMap if not already there.
+     * Gets data from provided reader.
+     * Optimized so that if data has already been read from reader, it will simply return the data instead of re-reading.
      * @param reader the reader to get data from
-     * @param <T>
+     * @param <T> the type of data within the reader
      * @return
      */
-    private <T> T getData(Reader<T> reader) {
-        @SuppressWarnings("unchecked")  // safe cast because the data in dataStore can only be the same type as reader
-        DataStore<T> dataStore = (DataStore<T>) readerToDataStoreMap.computeIfAbsent(reader, currentReader -> reader.read());
-        return dataStore.getData();
+    private <T> T getReaderData(Reader<T> reader) {
+        /*
+        * safe cast because only 1 of 2 things can happen:
+        * data is coming from the readers' read method which guarantees that it's the same type as reader being passed in
+        * OR the data is being pulled from the readerToDataStoreMap based on the provided reader
+        * in which case the dataStore value being returned from map is the same type because this is the only method that updates the map
+         */
+        @SuppressWarnings("unchecked")
+        T data = (T) readerToDataStoreMap.computeIfAbsent(reader, currentReader -> currentReader.read()).getData();
+        return data;
     }
     
 }
