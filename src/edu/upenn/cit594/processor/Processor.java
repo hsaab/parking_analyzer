@@ -28,14 +28,13 @@ public class Processor {
         for (Map.Entry<String, Area> entry : areaMap.entrySet()) {
             populationSum += entry.getValue().population;
         }
-        System.out.println("sum: " + populationSum);
         return populationSum;
     }
     
     
-    public void calculateTotalFinesPerCapita() {
+    public Map<String,Double> calculateTotalFinesPerCapita() {
         Map<String,Double> zipcodeToFineMap = new TreeMap<>();
-        Map<String, Area> areaMap = getReaderData(areaReader);
+        Map<String,Area> areaMap = getReaderData(areaReader);
         List<ParkingViolation> violations = getReaderData(parkingViolationReader);
         for (ParkingViolation violation : violations) {
             if (areaMap.containsKey((violation.zipcode))) {
@@ -47,17 +46,13 @@ public class Processor {
                 }
             }
         }
-    
        
         for (Map.Entry<String, Double> entry : zipcodeToFineMap.entrySet()) {
             double finesPerCapita = entry.getValue() / areaMap.get(entry.getKey()).population;
             zipcodeToFineMap.put(entry.getKey(), finesPerCapita);
         }
         
-        //TODO: move formatting to UI class - new DecimalFormat("#.####").format(finesPerCapita)
-        
-        System.out.println(zipcodeToFineMap);
-        
+        return zipcodeToFineMap;
     }
 
     public double calculateAverageByZipcode(String zipcode, PropertyCalculator propertyCalculator) {
@@ -68,8 +63,7 @@ public class Processor {
                 propertyCalculator.sumAndCountMetric(property);
             }
         }
-
-        System.out.println(propertyCalculator.average());
+        
         return propertyCalculator.average();
     }
 

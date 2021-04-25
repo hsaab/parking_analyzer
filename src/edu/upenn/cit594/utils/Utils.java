@@ -1,8 +1,8 @@
 package edu.upenn.cit594.utils;
 
-import org.json.simple.JSONObject;
-
+import java.math.RoundingMode;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,5 +65,42 @@ public class Utils {
             zipcode = zipcode.substring(0, 5);
         }
             return zipcode;
+    }
+    
+    /**
+     * Truncates provided value to String representation with provided number of decimalPlaces.
+     * Displays trailing 0s, even if not explicitly provided in value. Omits leading 0's.
+     * @param value value to truncate
+     * @param decimalPlaces number of decimal places to include
+     * @return the string representation of value with truncated decimals
+     */
+    public static String truncateDecimalsInValue(double value, int decimalPlaces) {
+        DecimalFormat decimalFormat = new DecimalFormat();
+        decimalFormat.setRoundingMode(RoundingMode.DOWN);
+        if (decimalPlaces < 0) throw new IllegalArgumentException("decimalPlaces must be non-negative: " + decimalPlaces);
+        StringBuilder pattern = new StringBuilder("0");
+        if (decimalPlaces > 0)  pattern.append(".");
+        for (int i = 1; i <= decimalPlaces; i++) {
+            pattern.append("0");
+        }
+        
+        decimalFormat.applyPattern(pattern.toString()); // update decimalFormat to use pattern that was just built
+        return  decimalFormat.format(value);
+    }
+    
+    /**
+     * Determines if the input is only comprised of digits.
+     * Spaces are considered non-digits.
+     * @param input the input to test
+     * @return true if all characters are digits, false if otherwise
+     */
+    public static boolean isOnlyDigits(String input) {
+        for (int i = 0; i < input.toCharArray().length; i++) {
+            char character = input.charAt(i);
+            if (!Character.isDigit(character)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
