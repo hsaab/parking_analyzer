@@ -63,8 +63,7 @@ public class Processor {
                 propertyCalculator.sumAndCountMetric(property);
             }
         }
-
-        System.out.println(propertyCalculator.average());
+        
         return propertyCalculator.average();
     }
 
