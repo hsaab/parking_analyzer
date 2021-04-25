@@ -11,11 +11,6 @@ public class Property {
         this.marketValue = marketValue;
         this.totalLivableArea = totalLivableArea;
         this.zipcode = zipcode;
-        System.out.println("Property{" +
-                "marketValue=" + marketValue +
-                ", totalLivableArea=" + totalLivableArea +
-                ", zipcode='" + zipcode + '\'' +
-                '}');
     }
 
     @Override

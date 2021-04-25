@@ -20,7 +20,7 @@ public class DataManagementTester {
 
         areaDelimitedFileReader.read();
 
-        Map<String, Area> dataStore = areaDelimitedFileReader.dataStore;
+        Map<String, Area> dataStore = areaDelimitedFileReader.dataStore.getData();
 
         assertEquals(dataStore.size(), 48);
         assertEquals(dataStore.get("19102").population, 4705);
@@ -37,7 +37,7 @@ public class DataManagementTester {
 
         parkingViolationDelimitedFileReader.read();
 
-        List<ParkingViolation> dataStore = parkingViolationDelimitedFileReader.dataStore;
+        List<ParkingViolation> dataStore = parkingViolationDelimitedFileReader.dataStore.getData();
 
         assertEquals(dataStore.size(), 25559);
 
@@ -67,7 +67,7 @@ public class DataManagementTester {
 
         propertyDelimitedFileReader.read();
 
-        List<Property> dataStore = propertyDelimitedFileReader.dataStore;
+        List<Property> dataStore = propertyDelimitedFileReader.dataStore.getData();
 
         assertEquals(dataStore.get(0).zipcode, "19148");
     }
@@ -81,7 +81,7 @@ public class DataManagementTester {
 
         propertyDelimitedFileReader.read();
 
-        List<Property> dataStore = propertyDelimitedFileReader.dataStore;
+        List<Property> dataStore = propertyDelimitedFileReader.dataStore.getData();
 
         assertEquals(dataStore.get(0).marketValue, 0.0);
         assertEquals(dataStore.get(0).zipcode, "19147");
@@ -102,7 +102,7 @@ public class DataManagementTester {
 
         parkingViolationJSONFileReader.read();
 
-        List<ParkingViolation> dataStore = parkingViolationJSONFileReader.dataStore;
+        List<ParkingViolation> dataStore = parkingViolationJSONFileReader.dataStore.getData();
 
         assertEquals(dataStore.size(), 25559);
 

@@ -14,15 +14,18 @@ public class PropertyDelimitedFileReader extends DelimitedFileReader<List<Proper
 
     public PropertyDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
         super(fileName, hasHeaders, delimitBy);
-
-        dataStore = new ArrayList<Property>();
+    }
+    
+    @Override
+    public void initializeDataStore() {
+        dataStore = new DataStore<>(new ArrayList<>());
     }
 
     @Override
     public void updateDataStore(List<String> dataList) {
         Property property = createProperty(dataList);
 
-        dataStore.add(property);
+        dataStore.getData().add(property);
     }
 
     @Override

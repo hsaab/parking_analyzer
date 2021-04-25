@@ -5,20 +5,24 @@ import edu.upenn.cit594.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<List<ParkingViolation>> {
     public ParkingViolationDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
         super(fileName, hasHeaders, delimitBy);
-
-        dataStore = new ArrayList<ParkingViolation>();
+    }
+    
+    @Override
+    public void initializeDataStore() {
+        dataStore = new DataStore<>(new ArrayList<>());
     }
 
     @Override
     public void updateDataStore(List<String> dataList) {
         ParkingViolation parkingViolation = createParkingViolation(dataList);
 
-        dataStore.add(parkingViolation);
+        dataStore.getData().add(parkingViolation);
     }
 
     @Override
