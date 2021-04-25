@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c413e5f4-3258-4b29-b8a5-3e36fd22a63d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Calculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaCalculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyValueCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaPropertyCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Processor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Processor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ProcessorTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ProcessorTester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyValueCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValuePropertyCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +48,19 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
   <component name="RunManager" selected="JUnit.ProcessorTester.testCalculateAverage">
+    <configuration name="Processor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.processor.Processor" />
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.processor.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DataManagementTester" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parking_analyzer" />
       <extension name="coverage">
@@ -95,22 +108,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DataManagementTester.testPropertyDelimitedFileReaderLite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="parking_analyzer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
-      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
-      <option name="METHOD_NAME" value="testPropertyDelimitedFileReaderLite" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ProcessorTester.testCalculateAverage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parking_analyzer" />
       <extension name="coverage">
@@ -130,10 +127,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ProcessorTester.testCalculateAverage" />
+        <item itemvalue="Application.Processor" />
         <item itemvalue="JUnit.DataManagementTester" />
         <item itemvalue="JUnit.DataManagementTester.testParkingViolationJSONFileReader" />
         <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReader" />
-        <item itemvalue="JUnit.DataManagementTester.testPropertyDelimitedFileReaderLite" />
       </list>
     </recent_temporary>
   </component>
@@ -151,10 +148,11 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618974947240">
-      <screen x="0" y="23" width="1440" height="829" />
+    <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619374399344">
+      <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.829@0.23.1440.829" timestamp="1618974947240" />
+    <state x="184" y="101" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.831@0.23.1440.831" timestamp="1619374399344" />
     <state x="100" y="123" width="1240" height="629" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1618981567330">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
@@ -163,31 +161,35 @@
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="533" y="150" key="#com.intellij.ide.util.MemberChooser/0.23.1440.829@0.23.1440.829" timestamp="1618975840858" />
-    <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1619216725609">
+    <state x="457" y="231" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1619374398476">
+      <screen x="0" y="23" width="1440" height="831" />
+    </state>
+    <state x="457" y="231" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1440.831@0.23.1440.831" timestamp="1619374398476" />
+    <state x="307" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1619373662688">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.829@0.23.1440.829" timestamp="1618980363392" />
-    <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.831@0.23.1440.831" timestamp="1619216725609" />
-    <state width="1398" height="105" key="GridCell.Tab.0.bottom" timestamp="1619219080448">
+    <state x="307" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.831@0.23.1440.831" timestamp="1619373662688" />
+    <state width="1398" height="105" key="GridCell.Tab.0.bottom" timestamp="1619374910962">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="1398" height="105" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1619219080448" />
-    <state width="1398" height="105" key="GridCell.Tab.0.center" timestamp="1619219080448">
+    <state width="1398" height="105" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1619374910962" />
+    <state width="1398" height="105" key="GridCell.Tab.0.center" timestamp="1619374910962">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="1398" height="105" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1619219080448" />
-    <state width="1398" height="105" key="GridCell.Tab.0.left" timestamp="1619219080447">
+    <state width="1398" height="105" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1619374910962" />
+    <state width="1398" height="105" key="GridCell.Tab.0.left" timestamp="1619374910961">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="1398" height="105" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1619219080447" />
-    <state width="1398" height="105" key="GridCell.Tab.0.right" timestamp="1619219080448">
+    <state width="1398" height="105" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1619374910961" />
+    <state width="1398" height="105" key="GridCell.Tab.0.right" timestamp="1619374910962">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="1398" height="105" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1619219080448" />
+    <state width="1398" height="105" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1619374910962" />
     <state x="424" y="341" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1618980848081">
       <screen x="0" y="23" width="1440" height="829" />
     </state>

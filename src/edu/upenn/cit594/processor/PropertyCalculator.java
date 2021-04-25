@@ -2,7 +2,7 @@ package edu.upenn.cit594.processor;
 
 import edu.upenn.cit594.data.Property;
 
-public abstract class Calculator {
+public abstract class PropertyCalculator {
     double sum;
     int count;
 

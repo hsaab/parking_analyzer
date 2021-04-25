@@ -1,8 +1,7 @@
 package edu.upenn.cit594.processor;
 
 import edu.upenn.cit594.data.*;
-import edu.upenn.cit594.datamanagement.DataStore;
-import edu.upenn.cit594.datamanagement.Reader;
+import edu.upenn.cit594.datamanagement.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,49 +60,25 @@ public class Processor {
         
     }
 
-    public double calculateAverage(String zipcode, Calculator calculator) {
-        List<Property> properties = getData(propertyReader);
-
-        for (Property property : properties) {
-            if (property.zipcode.equals(zipcode)) {
-                calculator.sumAndCountMetric(property);
-            }
-        }
-
-        System.out.println(calculator.average());
-        return calculator.average();
-    }
-
-    public double calculateAverageMarketValue(String zipcode) {
-        // Purely left in for testing purposes
-        int countProperties = 0;
-        double sumMarketValue = 0.0;
+    public double calculateAverageByZipcode(String zipcode, PropertyCalculator propertyCalculator) {
         List<Property> properties = getReaderData(propertyReader);
+
         for (Property property : properties) {
             if (property.zipcode.equals(zipcode)) {
-                countProperties++;
-                sumMarketValue += property.marketValue;
+                propertyCalculator.sumAndCountMetric(property);
             }
         }
-        System.out.println(sumMarketValue / countProperties);
 
-        return sumMarketValue / countProperties;
+        System.out.println(propertyCalculator.average());
+        return propertyCalculator.average();
     }
 
-    public double calculateAverageLivableArea(String zipcode) {
-        // Purely left in for testing purposes
-        int countProperties = 0;
-        double sumLivableArea = 0.0;
-        List<Property> properties = getData(propertyReader);
-        for (Property property : properties) {
-            if (property.zipcode.equals(zipcode)) {
-                countProperties++;
-                sumLivableArea += property.totalLivableArea;
-            }
-        }
-        System.out.println(sumLivableArea / countProperties);
+    public double calculateAverageMarketValueByZipcode(String zipcode) {
+       return this.calculateAverageByZipcode(zipcode, new MarketValuePropertyCalculator());
+    }
 
-        return sumLivableArea / countProperties;
+    public double calculateAverageLivableAreaByZipcode(String zipcode) {
+        return this.calculateAverageByZipcode(zipcode, new LivableAreaPropertyCalculator());
     }
     
     /**
@@ -113,16 +88,9 @@ public class Processor {
      * @param <T> the type of data within the reader
      * @return
      */
-    private <T> T getReaderData(Reader<T> reader) {
-        /*
-        * safe cast because only 1 of 2 things can happen:
-        * data is coming from the readers' read method which guarantees that it's the same type as reader being passed in
-        * OR the data is being pulled from the readerToDataStoreMap based on the provided reader
-        * in which case the dataStore value being returned from map is the same type because this is the only method that updates the map
-         */
-        @SuppressWarnings("unchecked")
+
+    protected <T> T getReaderData(Reader<T> reader) {
         T data = (T) readerToDataStoreMap.computeIfAbsent(reader, currentReader -> currentReader.read()).getData();
         return data;
     }
-    
 }
