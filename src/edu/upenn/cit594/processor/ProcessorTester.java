@@ -1,27 +1,58 @@
 package edu.upenn.cit594.processor;
 
+import edu.upenn.cit594.data.Area;
+import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.Property;
-import edu.upenn.cit594.datamanagement.AreaDelimitedFileReader;
-import edu.upenn.cit594.datamanagement.ParkingViolationDelimitedFileReader;
-import edu.upenn.cit594.datamanagement.PropertyDelimitedFileReader;
+import edu.upenn.cit594.datamanagement.*;
+import edu.upenn.cit594.logging.Logger;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProcessorTester {
-    public static void main(String[] args) {
-        PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader("properties.csv",true,",");
-        AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
+    Reader<List<Property>> propertyReader;
+    Reader<Map<String, Area>> areaReader;
+    Reader<List<ParkingViolation>> parkingViolationDelimitedFileReader;
+    Reader<List<ParkingViolation>> parkingViolationJSONFileReader;
+    Processor processorCsv;
+    Processor processorJson;
+    
+    @BeforeAll
+    static void setLog() {
+        Logger.setFilename("processor_tests.txt");
+    }
+    
+    @BeforeEach
+    void setup() {
+        this.propertyReader = new PropertyDelimitedFileReader("properties.csv",true,",");
+        this.areaReader = new AreaDelimitedFileReader(
                 "population.txt", false, " "
         );
-        ParkingViolationDelimitedFileReader parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
+        this.parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
                 "parking.csv", false, ","
         );
-        Processor processor = new Processor(propertyDelimitedFileReader, areaDelimitedFileReader, parkingViolationDelimitedFileReader);
-        processor.sumPopulations();
-        processor.calculateTotalFinesPerCapita();
+        this.parkingViolationJSONFileReader = new ParkingViolationJSONFileReader(
+                "parking.json"
+        );
+        processorCsv = new Processor(propertyReader, areaReader, parkingViolationDelimitedFileReader);
+        processorJson = new Processor(propertyReader, areaReader, parkingViolationJSONFileReader);
+    }
+    
+    @Test
+    void testSumPopulations() {
+        Logger.getLogger().log("testSumPopulations with csv properties file");
+        int expected = 1526206;
+        int result = processorCsv.sumPopulations();
+        assertEquals(expected, result);
+    
+        Logger.getLogger().log("testSumPopulations with json properties file");
+        result = processorJson.sumPopulations();
+        assertEquals(expected, result);
     }
 
     public double calculateAverageLivableAreaByZipcodeTester(String zipcode, List<Property> propertyList) {
@@ -57,28 +88,38 @@ public class ProcessorTester {
     }
 
     @Test
-    void testCalculateAverage() {
-        PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader("properties.csv",true,",");
-        AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
-                "population.txt", false, " "
-        );
-        ParkingViolationDelimitedFileReader parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
-                "parking.csv", false, ","
-        );
-        Processor processor = new Processor(propertyDelimitedFileReader, areaDelimitedFileReader, parkingViolationDelimitedFileReader);
-
-        List<Property> propertyList = processor.getReaderData(propertyDelimitedFileReader);
+    void testCalculateAverageCsv() {
+        Logger.getLogger().log("testCalculateAverageCsv");
+        List<Property> propertyList = processorCsv.getReaderData(propertyReader);
 
         // Checking strategy pattern and easier explicit method version tie for Market Value
-        double strategyMethodAverage = processor.calculateAverageMarketValueByZipcode("19148");
+        double strategyMethodAverage = processorCsv.calculateAverageMarketValueByZipcode("19148");
         double average = this.calculateAverageMarketValueByZipcodeTester("19148", propertyList);
-
-        assertEquals(strategyMethodAverage, average);
+    
+        assertEquals(average, strategyMethodAverage);
 
         // Checking strategy pattern and easier explicit method version tie for Livable Area
-        strategyMethodAverage = processor.calculateAverageLivableAreaByZipcode("19148");
+        strategyMethodAverage = processorCsv.calculateAverageLivableAreaByZipcode("19148");
         average = this.calculateAverageLivableAreaByZipcodeTester("19148", propertyList);
-
-        assertEquals(strategyMethodAverage, average);
+    
+        assertEquals(average, strategyMethodAverage);
+    }
+    
+    @Test
+    void testCalculateAverageJSON() {
+        Logger.getLogger().log("testCalculateAverageJSON");
+        List<Property> propertyList = processorJson.getReaderData(propertyReader);
+        
+        // Checking strategy pattern and easier explicit method version tie for Market Value
+        double strategyMethodAverage = processorJson.calculateAverageMarketValueByZipcode("19148");
+        double average = this.calculateAverageMarketValueByZipcodeTester("19148", propertyList);
+        
+        assertEquals(average, strategyMethodAverage);
+        
+        // Checking strategy pattern and easier explicit method version tie for Livable Area
+        strategyMethodAverage = processorJson.calculateAverageLivableAreaByZipcode("19148");
+        average = this.calculateAverageLivableAreaByZipcodeTester("19148", propertyList);
+        
+        assertEquals(average, strategyMethodAverage);
     }
 }

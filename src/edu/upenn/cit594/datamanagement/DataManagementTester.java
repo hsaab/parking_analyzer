@@ -3,7 +3,9 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.data.Area;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.utils.Utils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,6 +14,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataManagementTester {
+    @BeforeAll
+    static void setup() {
+        Logger.setFilename("test.txt");
+    }
     @Test
     void testAreaDelimitedFileReader() {
         AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(

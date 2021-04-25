@@ -1,11 +1,12 @@
 package edu.upenn.cit594.ui;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.Scanner;
-
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Processor;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Map;
+import java.util.Scanner;
 
 public class CommandLineUserInterface {
     private Scanner in;
@@ -32,7 +33,7 @@ public class CommandLineUserInterface {
             return;
         }
         options[choice - 1].execute();
-        start(); // prompt again when execution is complete
+        start(); // prompt again when execution of choice is complete
     }
     
     /**
@@ -138,7 +139,6 @@ public class CommandLineUserInterface {
                 new Command("Calculate total population for all zip codes.") {
                     @Override
                     public void execute() {
-                        System.out.println(this);
                         int sum = processor.sumPopulations();
                         System.out.println(sum);
                     }
@@ -146,24 +146,26 @@ public class CommandLineUserInterface {
                 new Command("Calculate total fines per capita.") {
                     @Override
                     public void execute() {
-                        System.out.println(this);
-                        processor.calculateTotalFinesPerCapita();
+                        Map<String,Double> zipcodeToFineMap = processor.calculateTotalFinesPerCapita();
+                        for (Map.Entry<String, Double> entry : zipcodeToFineMap.entrySet()) {
+                            System.out.println(entry.getKey() + " " + truncateDecimalsInValue(entry.getValue(), 4));
+                        }
                     }
                 },
                 new Command("Calculate average market value.") {
                     @Override
                     public void execute() {
-                        System.out.println(this);
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Loading...");
-                        double result = processor.calculateAverageMarketValue(zipcode);
+                        double result = processor.calculateAverageMarketValueByZipcode(zipcode);
                         System.out.println(truncateDecimalsInValue(result, 0));
                     }
                 },
                 new Command("Calculate average total livable area.") {
                     @Override
                     public void execute() {
-                        System.out.println(this);
+                        String zipcode = promptUserForValidZipcode();
+                        double result = processor.calculateAverageLivableAreaByZipcode(zipcode);
+                        System.out.println(truncateDecimalsInValue(result, 0));
                     }
                 },
                 new Command("Calculate total residential market value per capita.") {
