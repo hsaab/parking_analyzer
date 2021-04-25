@@ -1,5 +1,6 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,6 +17,7 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
     public DataStore<T> read() {
         Object obj = null;
         initializeDataStore(); // sets/resets dataStore to empty version of T so updateDataStore works
+        Logger.getLogger().log(super.fileName);
         try {
             obj = new JSONParser().parse(new java.io.FileReader(this.fileName));
         } catch (IOException e) {

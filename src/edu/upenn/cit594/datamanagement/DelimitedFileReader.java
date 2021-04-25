@@ -1,5 +1,7 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.logging.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,9 +22,10 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
     public DataStore<T> read() {
         String line = null;
         initializeDataStore(); // sets/resets dataStore to empty version of T so updateDataStore works
+        Logger.getLogger().log(super.fileName);
         try {
             BufferedReader br = new BufferedReader(new java.io.FileReader(this.fileName));
-
+            
             if (this.hasHeaders) {
                 line = br.readLine();
                 this.headerList = this.tokenizer.split(line);
