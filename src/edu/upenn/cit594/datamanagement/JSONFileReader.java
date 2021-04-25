@@ -15,8 +15,7 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
 
     public DataStore<T> read() {
         Object obj = null;
-        if(dataStore != null) return dataStore;
-        initializeDataStore();
+        initializeDataStore(); // sets/resets dataStore to empty version of T so updateDataStore works
         try {
             obj = new JSONParser().parse(new java.io.FileReader(this.fileName));
         } catch (IOException e) {
@@ -38,6 +37,7 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
         return dataStore;
     }
     
+    @Override
     public abstract void initializeDataStore();
     public abstract void updateDataStore(JSONObject jsonObject);
 }
