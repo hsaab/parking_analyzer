@@ -1,80 +1,76 @@
 package edu.upenn.cit594.processor;
 
-import edu.upenn.cit594.data.*;
-import edu.upenn.cit594.datamanagement.*;
+import edu.upenn.cit594.data.Area;
+import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.datamanagement.DataStore;
+import edu.upenn.cit594.datamanagement.Reader;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 
 public class Processor {
     Reader<List<Property>> propertyReader;
     Reader<Map<String,Area>> areaReader;
     Reader<List<ParkingViolation>> parkingViolationReader;
+
     Map<Reader<?>, DataStore<?>> readerToDataStoreMap;
     
     public Processor(Reader<List<Property>> propertyReader, Reader<Map<String,Area>> areaReader, Reader<List<ParkingViolation>> parkingViolationReader) {
         this.propertyReader = propertyReader;
         this.areaReader = areaReader;
         this.parkingViolationReader = parkingViolationReader;
+
         readerToDataStoreMap = new HashMap<>();
     }
-    
+
+    // AREA CALCULATIONS
     public int sumPopulations() {
-        int populationSum = 0;
-        Map<String, Area> areaMap = getReaderData(areaReader);
-        
-        for (Map.Entry<String, Area> entry : areaMap.entrySet()) {
-            populationSum += entry.getValue().population;
-        }
-        return populationSum;
+        Map<String,Area> areaMap = getReaderData(areaReader);
+
+        return AreaCalculator.sumPopulations(areaMap);
     }
-    
-    
+
+    // PARKING VIOLATION CALCULATIONS
     public Map<String,Double> calculateTotalFinesPerCapita() {
-        Map<String,Double> zipcodeToFineMap = new TreeMap<>();
         Map<String,Area> areaMap = getReaderData(areaReader);
         List<ParkingViolation> violations = getReaderData(parkingViolationReader);
-        for (ParkingViolation violation : violations) {
-            if (areaMap.containsKey((violation.zipcode))) {
-                if (zipcodeToFineMap.containsKey(violation.zipcode)) {
-                    double sumFine = zipcodeToFineMap.get(violation.zipcode) + violation.fine;
-                    zipcodeToFineMap.put(violation.zipcode, sumFine);
-                } else {
-                    zipcodeToFineMap.put(violation.zipcode, violation.fine);
-                }
-            }
-        }
-       
-        for (Map.Entry<String, Double> entry : zipcodeToFineMap.entrySet()) {
-            double finesPerCapita = entry.getValue() / areaMap.get(entry.getKey()).population;
-            zipcodeToFineMap.put(entry.getKey(), finesPerCapita);
-        }
-        
-        return zipcodeToFineMap;
+
+        return ParkingViolationCalculator.calculateTotalFinesPerCapita(areaMap, violations);
     }
 
-    public double calculateAverageByZipcode(String zipcode, PropertyCalculator propertyCalculator) {
+    public Set<Area> calculateFineCountForHighestMarketValuePerCapitaAreas() {
+        Map<String, Area> areaMap = getReaderData(areaReader);
+        List<ParkingViolation> violations = getReaderData(parkingViolationReader);
         List<Property> properties = getReaderData(propertyReader);
 
-        for (Property property : properties) {
-            if (property.zipcode.equals(zipcode)) {
-                propertyCalculator.sumAndCountMetric(property);
-            }
-        }
-        
-        return propertyCalculator.average();
+        Map<String, ParkingViolationMetrics> zipcodeToParkingViolationMetricsMap = ParkingViolationCalculator.buildParkingViolationMetricsByZipcode(areaMap, violations);
+
+        return PropertyCalculator.calculateFineCountForHighestMarketValuePerCapitaAreas(properties, areaMap, zipcodeToParkingViolationMetricsMap);
     }
 
+    // PROPERTY CALCULATIONS
     public double calculateAverageMarketValueByZipcode(String zipcode) {
-       return this.calculateAverageByZipcode(zipcode, new MarketValuePropertyCalculator());
+        List<Property> properties = getReaderData(propertyReader);
+
+       return PropertyCalculator.calculateAverageByZipcode(zipcode, new MarketValueMetrics(), properties);
     }
 
     public double calculateAverageLivableAreaByZipcode(String zipcode) {
-        return this.calculateAverageByZipcode(zipcode, new LivableAreaPropertyCalculator());
+        List<Property> properties = getReaderData(propertyReader);
+
+        return PropertyCalculator.calculateAverageByZipcode(zipcode, new LivableAreaMetrics(), properties);
     }
-    
+
+    public double calculateResidentialMarketValuePerCapita(String zipcode) {
+        Map<String,Area> areaMap = getReaderData(areaReader);
+        List<Property> properties = getReaderData(propertyReader);
+
+        return PropertyCalculator.calculateResidentialMarketValuePerCapita(zipcode, areaMap, properties);
+    }
+
     /**
      * Gets data from provided reader.
      * Optimized so that if data has already been read from reader, it will simply return the data instead of re-reading.
