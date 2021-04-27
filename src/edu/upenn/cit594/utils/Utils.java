@@ -1,5 +1,7 @@
 package edu.upenn.cit594.utils;
 
+import org.json.simple.JSONObject;
+
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -27,21 +29,25 @@ public class Utils {
     }
 
     public static double extractDoubleValueFromList(List<String> dataList, int index) {
-            try {
-                if(Utils.isExistingValue(dataList, index)) {
-                    return Double.parseDouble(dataList.get(index));
-                } else {
-                    return Double.NaN;
-                }
-            } catch(NumberFormatException e) {
+        try {
+            if(Utils.isExistingValue(dataList, index)) {
+                return Double.parseDouble(dataList.get(index));
+            } else {
                 return Double.NaN;
             }
+        } catch(Exception e) {
+            return Double.NaN;
+        }
     }
 
     public static String extractStringValueFromList(List<String> dataList, int index) {
-        if(Utils.isExistingValue(dataList, index)) {
-            return dataList.get(index);
-        } else {
+        try {
+            if(Utils.isExistingValue(dataList, index)) {
+                return dataList.get(index);
+            } else {
+                return "";
+            }
+        } catch(Exception e) {
             return "";
         }
     }
@@ -50,11 +56,7 @@ public class Utils {
         if(Utils.isExistingValue(dataList, index)) {
             String zipcode = dataList.get(index);
 
-            if(zipcode.length() > 5) {
-                zipcode = zipcode.substring(0, 5);
-            }
-
-            return zipcode;
+            return extractZipCodeValue(zipcode);
         } else {
             return "";
         }
@@ -65,6 +67,32 @@ public class Utils {
             zipcode = zipcode.substring(0, 5);
         }
             return zipcode;
+    }
+
+    public static String extractZipcodeValueFromJSON(JSONObject object) {
+        try {
+            String zipcode = object.get("zip_code").toString();
+
+            return extractZipCodeValue(zipcode);
+        } catch(Exception e) {
+            return "";
+        }
+    }
+
+    public static double extractDoubleFromJSON(JSONObject object, String propertyName) {
+        try {
+            return Double.parseDouble(object.get(propertyName).toString());
+        } catch(Exception e) {
+            return Double.NaN;
+        }
+    }
+
+    public static String extractStringFromJSON(JSONObject object, String propertyName) {
+        try {
+            return object.get(propertyName).toString();
+        } catch(Exception e) {
+            return "";
+        }
     }
     
     /**

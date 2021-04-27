@@ -4,7 +4,7 @@ public abstract class Metrics<T> {
     double sum;
     int count;
     
-    Metrics() {
+    public Metrics() {
         this.sum = 0;
         this.count = 0;
     }

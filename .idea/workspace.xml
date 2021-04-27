@@ -2,20 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c413e5f4-3258-4b29-b8a5-3e36fd22a63d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/AreaCalculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Metrics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ParkingViolationCalculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ParkingViolationMetrics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/MarketValueComparator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/PropertyDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/PropertyDelimitedFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaPropertyCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValuePropertyCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValueMetrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/JSONFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/JSONFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/AreaCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/AreaCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaMetrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValueMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValueMetrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Metrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Metrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ParkingViolationCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ParkingViolationCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Processor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Processor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ProcessorTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ProcessorTester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/ui/CommandLineUserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/ui/CommandLineUserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,29 +190,29 @@
     <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.829@0.23.1440.829" timestamp="1618980363392" />
     <state x="546" y="-1417" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619489713803" />
     <state x="307" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.831@0.23.1440.831" timestamp="1619373662688" />
-    <state width="2518" height="615" key="GridCell.Tab.0.bottom" timestamp="1619492155766">
+    <state width="2518" height="626" key="GridCell.Tab.0.bottom" timestamp="1619501754066">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="2518" height="615" key="GridCell.Tab.0.bottom/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619492155766" />
+    <state width="2518" height="626" key="GridCell.Tab.0.bottom/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754066" />
     <state width="1398" height="642" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1619410065512" />
-    <state width="2518" height="615" key="GridCell.Tab.0.center" timestamp="1619492155765">
+    <state width="2518" height="626" key="GridCell.Tab.0.center" timestamp="1619501754065">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="2518" height="615" key="GridCell.Tab.0.center/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619492155765" />
+    <state width="2518" height="626" key="GridCell.Tab.0.center/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754065" />
     <state width="1398" height="642" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1619410065511" />
-    <state width="2518" height="615" key="GridCell.Tab.0.left" timestamp="1619492155764">
+    <state width="2518" height="626" key="GridCell.Tab.0.left" timestamp="1619501754065">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="2518" height="615" key="GridCell.Tab.0.left/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619492155764" />
+    <state width="2518" height="626" key="GridCell.Tab.0.left/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754065" />
     <state width="1398" height="642" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1619410065511" />
-    <state width="2518" height="615" key="GridCell.Tab.0.right" timestamp="1619492155765">
+    <state width="2518" height="626" key="GridCell.Tab.0.right" timestamp="1619501754066">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
-    <state width="2518" height="615" key="GridCell.Tab.0.right/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619492155765" />
+    <state width="2518" height="626" key="GridCell.Tab.0.right/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754066" />
     <state width="1398" height="642" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1619410065512" />
     <state x="602" y="-1164" key="SettingsEditor" timestamp="1619491573334">
       <screen x="0" y="-1417" width="2560" height="1417" />

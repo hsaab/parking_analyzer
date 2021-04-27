@@ -28,8 +28,8 @@ public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Are
     }
 
     public Area createArea(List<String> dataList) {
-        String zipcode = Utils.extractZipCodeValue(dataList.get(0));
-        int population = Integer.parseInt(dataList.get(1));
+        String zipcode = Utils.extractZipcodeValueFromList(dataList, 0);
+        double population = Utils.extractDoubleValueFromList(dataList, 1);
 
         return new Area(zipcode, population);
     }

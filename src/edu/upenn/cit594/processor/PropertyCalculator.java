@@ -4,19 +4,25 @@ import edu.upenn.cit594.data.Area;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.utils.MarketValueComparator;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class PropertyCalculator {
-    public static double calculateAverageByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
-        computePropertyMetricsByZipcode(zipcode, metrics, properties);
+    Set<Area> areaSetByMarketValue = new TreeSet<>(new MarketValueComparator());
+    Map<String, Double> averageLivableAreaByZipcode = new HashMap<>();
+    Map<String, Double> averageMarketValueByZipcode = new HashMap<>();
+    Map<String, Double> marketValuePerCapitaByZipcode = new HashMap<>();
 
-        return metrics.average();
+    protected double calculateAverageByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
+        this.computePropertyMetricsByZipcode(zipcode, metrics, properties);
+
+        double averageByZipcode = metrics.average();
+
+        this.putAverageToMapByZipcode(zipcode, metrics, averageByZipcode);
+
+        return averageByZipcode;
     }
 
-    public static double calculateResidentialMarketValuePerCapita(String zipcode, Map<String, Area> areas, List<Property> properties) {
+    protected double calculateResidentialMarketValuePerCapita(String zipcode, Map<String, Area> areas, List<Property> properties) {
         double populationOfZipcode = areas.get(zipcode).population;
 
         if(Double.compare(0, populationOfZipcode) == 0) {
@@ -24,17 +30,17 @@ public class PropertyCalculator {
         }
 
         MarketValueMetrics marketValuePropertyCalculator = new MarketValueMetrics();
-
         computePropertyMetricsByZipcode(zipcode, marketValuePropertyCalculator, properties);
 
         double marketValueSumOfZipcode = marketValuePropertyCalculator.sum;
+        double marketValuePerCapita = marketValueSumOfZipcode / populationOfZipcode;
 
-        return marketValueSumOfZipcode / populationOfZipcode;
+        marketValuePerCapitaByZipcode.put(zipcode, marketValuePerCapita);
+
+        return marketValuePerCapita;
     }
 
-    public static Set<Area> calculateFineCountForHighestMarketValuePerCapitaAreas(List<Property> properties, Map<String, Area> areaMap, Map<String, ParkingViolationMetrics> zipcodeToParkingViolationMetricsMap) {
-        Set<Area> areaSetByMarketValue = new TreeSet<>(new MarketValueComparator()); // sorts from high to low
-
+    protected Set<Area> calculateFineCountForHighestMarketValuePerCapitaAreas(List<Property> properties, Map<String, Area> areaMap, Map<String, ParkingViolationMetrics> zipcodeToParkingViolationMetricsMap) {
         for (Map.Entry<String, Area> entry : areaMap.entrySet()) {
             Area area = entry.getValue();
 
@@ -45,17 +51,27 @@ public class PropertyCalculator {
             area.setMarketValuePerCapita(marketValuePerCapita);
             area.setFineCount(fineCount);
 
-            if(!Double.isNaN(area.marketValuePerCapita)) areaSetByMarketValue.add(area);
+            if(!Double.isNaN(area.marketValuePerCapita)) this.areaSetByMarketValue.add(area);
         }
 
-        return areaSetByMarketValue;
+        return this.areaSetByMarketValue;
     }
 
-    protected static void computePropertyMetricsByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
+    private void computePropertyMetricsByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
         for (Property property : properties) {
             if (property.zipcode.equals(zipcode)) {
                 metrics.sumAndCountMetric(property);
             }
+        }
+    }
+
+    private void putAverageToMapByZipcode(String zipcode, Metrics metrics, double averageByZipcode) {
+        if(metrics.getClass().getSimpleName().equals(LivableAreaMetrics.className)) {
+            averageLivableAreaByZipcode.put(zipcode, averageByZipcode);
+        }
+
+        if(metrics.getClass().getSimpleName().equals(MarketValueMetrics.className)) {
+            averageMarketValueByZipcode.put(zipcode, averageByZipcode);
         }
     }
 }

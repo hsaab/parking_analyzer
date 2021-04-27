@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.*;
 
 public abstract class DelimitedFileReader<T> extends FileReader<T> {
-    boolean hasHeaders;
-    List<String> headerList;
-    Tokenizer tokenizer;
+    protected List<String> headerList;
+    private boolean hasHeaders;
+    private Tokenizer tokenizer;
 
     public DelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
         super(fileName);
