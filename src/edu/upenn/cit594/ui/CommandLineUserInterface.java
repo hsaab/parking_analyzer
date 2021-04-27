@@ -1,11 +1,14 @@
 package edu.upenn.cit594.ui;
 
+import edu.upenn.cit594.data.Area;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Processor;
 import edu.upenn.cit594.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class CommandLineUserInterface {
     private Scanner in;
@@ -127,13 +130,24 @@ public class CommandLineUserInterface {
                 new Command("Calculate total residential market value per capita.") {
                     @Override
                     public void execute() {
-                        System.out.println(this);
+                        String zipcode = promptUserForValidZipcode();
+                        System.out.println("Running...");
+                        double result = processor.calculateResidentialMarketValuePerCapita(zipcode);
+                        System.out.println(Utils.truncateDecimalsInValue(result, 0));
                     }
                 },
-                new Command("Custom calculation") {
+                new Command("Calculate fine count by zipcode sorted by highest market value per capita") {
                     @Override
                     public void execute() {
-                        System.out.println(this);
+                        System.out.println("Running...");
+
+                        DecimalFormat formatter = new DecimalFormat("$#,###.00");
+
+                        Set<Area> areaByHighestMarketValuePerCapita = processor.calculateFineCountForHighestMarketValuePerCapitaAreas();
+
+                        for(Area area : areaByHighestMarketValuePerCapita) {
+                            System.out.println("Zipcode: " + area.zipcode + "  market value: " + formatter.format(area.marketValuePerCapita) + "  number of fines: " + area.fineCount);
+                        }
                     }
                 }
         };

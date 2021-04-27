@@ -9,10 +9,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.DecimalFormat;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProcessorTester {
     Reader<List<Property>> propertyReader;
@@ -21,7 +25,9 @@ public class ProcessorTester {
     Reader<List<ParkingViolation>> parkingViolationJSONFileReader;
     Processor processorCsv;
     Processor processorJson;
-    
+    Processor processorTestCsv;
+    PropertyDelimitedFileReader propertyTestReader;
+
     @BeforeAll
     static void setLog() {
         Logger.setFilename("processor_tests.txt");
@@ -30,6 +36,7 @@ public class ProcessorTester {
     @BeforeEach
     void setup() {
         this.propertyReader = new PropertyDelimitedFileReader("properties.csv",true,",");
+        this.propertyTestReader = new PropertyDelimitedFileReader("properties-test.csv",true,",");
         this.areaReader = new AreaDelimitedFileReader(
                 "population.txt", false, " "
         );
@@ -39,6 +46,7 @@ public class ProcessorTester {
         this.parkingViolationJSONFileReader = new ParkingViolationJSONFileReader(
                 "parking.json"
         );
+        processorTestCsv = new Processor(propertyTestReader, areaReader, parkingViolationDelimitedFileReader);
         processorCsv = new Processor(propertyReader, areaReader, parkingViolationDelimitedFileReader);
         processorJson = new Processor(propertyReader, areaReader, parkingViolationJSONFileReader);
     }
@@ -121,5 +129,45 @@ public class ProcessorTester {
         average = this.calculateAverageLivableAreaByZipcodeTester("19148", propertyList);
         
         assertEquals(average, strategyMethodAverage);
+    }
+
+    @Test
+    void testCalculateResidentialMarketValuePerCapita() {
+        double residentialMarketValuePerCapita = processorTestCsv.calculateResidentialMarketValuePerCapita("19148");
+
+        // 264800 market value #1
+        // 282900 market value #2
+        // 49732 population
+        assertEquals((264800 + 282900) / 49732, residentialMarketValuePerCapita, 0.5);
+    }
+
+    @Test
+    void testTotalFinesPerCapita() {
+        Map<String, Double> areaByMarketValue = processorCsv.calculateTotalFinesPerCapita();
+
+        assertEquals(44, areaByMarketValue.size());
+    }
+
+    @Test
+    void testCalculateFineCountForHighestMarketValuePerCapitaAreas() {
+        Set<Area> areaByMarketValue = processorCsv.calculateFineCountForHighestMarketValuePerCapitaAreas();
+
+        assertEquals(48, areaByMarketValue.size());
+
+        Iterator<Area> iterator = areaByMarketValue.iterator();
+        double prevMarketValuePerCapita = Double.POSITIVE_INFINITY;
+
+        while (iterator.hasNext()) {
+            Area nextArea = iterator.next();
+
+            DecimalFormat formatter = new DecimalFormat("$#,###.00");
+            System.out.println("Area Zip " + nextArea.zipcode + " market value: " + formatter.format(nextArea.marketValuePerCapita) + " number of fines: " + nextArea.fineCount);
+
+            if(!Double.isNaN(nextArea.marketValuePerCapita)) {
+                assertTrue(Double.compare(nextArea.marketValuePerCapita, prevMarketValuePerCapita) <= 0);
+
+                prevMarketValuePerCapita = nextArea.marketValuePerCapita;
+            }
+        }
     }
 }

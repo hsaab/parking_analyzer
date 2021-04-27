@@ -3,7 +3,6 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.utils.Utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
