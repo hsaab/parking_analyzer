@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.List;
@@ -19,10 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProcessorTester {
-    Reader<List<Property>> propertyReader;
-    Reader<Map<String, Area>> areaReader;
     Reader<List<ParkingViolation>> parkingViolationDelimitedFileReader;
     Reader<List<ParkingViolation>> parkingViolationJSONFileReader;
+    Reader<List<Property>> propertyReader;
+    Reader<Map<String, Area>> areaReader;
+    
     Processor processorCsv;
     Processor processorJson;
     Processor processorTestCsv;
@@ -34,21 +36,21 @@ public class ProcessorTester {
     }
     
     @BeforeEach
-    void setup() {
-        this.propertyReader = new PropertyDelimitedFileReader("properties.csv",true,",");
-        this.propertyTestReader = new PropertyDelimitedFileReader("properties-test.csv",true,",");
-        this.areaReader = new AreaDelimitedFileReader(
-                "population.txt", false, " "
-        );
+    void setup() throws FileNotFoundException {
         this.parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
                 "parking.csv", false, ","
         );
         this.parkingViolationJSONFileReader = new ParkingViolationJSONFileReader(
                 "parking.json"
         );
-        processorTestCsv = new Processor(propertyTestReader, areaReader, parkingViolationDelimitedFileReader);
-        processorCsv = new Processor(propertyReader, areaReader, parkingViolationDelimitedFileReader);
-        processorJson = new Processor(propertyReader, areaReader, parkingViolationJSONFileReader);
+        this.propertyReader = new PropertyDelimitedFileReader("properties.csv",true,",");
+        this.propertyTestReader = new PropertyDelimitedFileReader("properties-test.csv",true,",");
+        this.areaReader = new AreaDelimitedFileReader(
+                "population.txt", false, " "
+        );
+        processorTestCsv = new Processor(parkingViolationDelimitedFileReader, propertyTestReader, areaReader);
+        processorCsv = new Processor(parkingViolationDelimitedFileReader, propertyReader, areaReader);
+        processorJson = new Processor(parkingViolationJSONFileReader, propertyReader, areaReader);
     }
     
     @Test
@@ -69,9 +71,9 @@ public class ProcessorTester {
         double sumLivableArea = 0.0;
 
         for (Property property : propertyList) {
-            if (property.zipcode.equals(zipcode)) {
+            if (property.getZipcode().equals(zipcode)) {
                 countProperties++;
-                sumLivableArea += property.totalLivableArea;
+                sumLivableArea += property.getTotalLivableArea();
             }
         }
         System.out.println(sumLivableArea / countProperties);
@@ -85,9 +87,9 @@ public class ProcessorTester {
         double sumMarketValue = 0.0;
 
         for (Property property : propertyList) {
-            if (property.zipcode.equals(zipcode)) {
+            if (property.getZipcode().equals(zipcode)) {
                 countProperties++;
-                sumMarketValue += property.marketValue;
+                sumMarketValue += property.getMarketValue();
             }
         }
         System.out.println(sumMarketValue / countProperties);
@@ -132,7 +134,7 @@ public class ProcessorTester {
     }
 
     @Test
-    void testCalculateResidentialMarketValuePerCapita() {
+    void testCalculateResidentialMarketValuePerCapita() throws FileNotFoundException {
         double residentialMarketValuePerCapita = processorTestCsv.calculateResidentialMarketValuePerCapita("19148");
 
         // 264800 market value #1
@@ -142,14 +144,14 @@ public class ProcessorTester {
     }
 
     @Test
-    void testTotalFinesPerCapita() {
+    void testTotalFinesPerCapita() throws FileNotFoundException {
         Map<String, Double> areaByMarketValue = processorCsv.calculateTotalFinesPerCapita();
         System.out.println(areaByMarketValue);
         assertEquals(42, areaByMarketValue.size());
     }
 
     @Test
-    void testCalculateFineCountForHighestMarketValuePerCapitaAreas() {
+    void testCalculateFineCountForHighestMarketValuePerCapitaAreas() throws FileNotFoundException {
         Set<Area> areaByMarketValue = processorCsv.calculateFineCountForHighestMarketValuePerCapitaAreas();
 
         //assertEquals(29, areaByMarketValue.size());
@@ -161,28 +163,28 @@ public class ProcessorTester {
             Area nextArea = iterator.next();
 
             DecimalFormat formatter = new DecimalFormat("$#,###.00");
-            System.out.println("Area Zip " + nextArea.zipcode + " market value: " + formatter.format(nextArea.marketValuePerCapita) + " number of fines: " + nextArea.fineCount);
+            System.out.println("Area Zip " + nextArea.getZipcode() + " market value: " + formatter.format(nextArea.getMarketValuePerCapita()) + " number of fines: " + nextArea.getFineCount());
 
-            if(!Double.isNaN(nextArea.marketValuePerCapita)) {
-                assertTrue(Double.compare(nextArea.marketValuePerCapita, prevMarketValuePerCapita) <= 0);
+            if(!Double.isNaN(nextArea.getMarketValuePerCapita())) {
+                assertTrue(Double.compare(nextArea.getMarketValuePerCapita(), prevMarketValuePerCapita) <= 0);
 
-                prevMarketValuePerCapita = nextArea.marketValuePerCapita;
+                prevMarketValuePerCapita = nextArea.getMarketValuePerCapita();
             }
         }
     }
     
     @Test
-    void testBadInputsForSumPopulation() {
+    void testBadInputsForSumPopulation() throws FileNotFoundException {
         Reader<Map<String, Area>> areaReader = new AreaDelimitedFileReader("population-bad1.txt", true, " ");
-        Processor badInputProcessor = new Processor(propertyReader, areaReader, parkingViolationDelimitedFileReader);
-        assertEquals(670, badInputProcessor.sumPopulations());
+        Processor badInputProcessor = new Processor(parkingViolationDelimitedFileReader, propertyReader, areaReader);
+        assertEquals(970, badInputProcessor.sumPopulations());
     }
     
     @Test
-    void testBadInputsForTotalFinesPerCapita() {
+    void testBadInputsForTotalFinesPerCapita() throws FileNotFoundException {
         Reader<Map<String, Area>> areaReader = new AreaDelimitedFileReader("population-bad1.txt", true, " ");
         Reader<List<ParkingViolation>> parkingReader = new ParkingViolationJSONFileReader("parking-bad-1.json");
-        Processor badInputProcessor = new Processor(propertyReader, areaReader, parkingReader);
+        Processor badInputProcessor = new Processor(parkingReader, propertyReader, areaReader);
         Map<String, Double> finesPerCapita = badInputProcessor.calculateTotalFinesPerCapita();
         assertEquals(36.0 / 50.0,finesPerCapita.get("19102"));
         assertEquals(41.0 / 100.0,finesPerCapita.get("19107"));
@@ -191,9 +193,9 @@ public class ProcessorTester {
     }
     
     @Test
-    void testBadInputsForAverageMarketValue() {
+    void testBadInputsForAverageMarketValue() throws FileNotFoundException {
         Reader<List<Property>> badPropertyReader = new PropertyDelimitedFileReader("properties-test-bad.csv",true,",");
-        Processor badInputProcessor = new Processor(badPropertyReader, areaReader, parkingViolationDelimitedFileReader);
+        Processor badInputProcessor = new Processor(parkingViolationDelimitedFileReader, badPropertyReader, areaReader);
         //assertEquals(0.0, badInputProcessor.calculateAverageMarketValueByZipcode(""));
         assertEquals(282900 / 2.0, badInputProcessor.calculateAverageMarketValueByZipcode("19147"));
         assertEquals(0.0, badInputProcessor.calculateAverageMarketValueByZipcode("19104"));
@@ -203,9 +205,9 @@ public class ProcessorTester {
     }
     
     @Test
-    void testBadInputsForAverageLivableArea() {
+    void testBadInputsForAverageLivableArea() throws FileNotFoundException {
         Reader<List<Property>> badPropertyReader = new PropertyDelimitedFileReader("properties-test-bad.csv",true,",");
-        Processor badInputProcessor = new Processor(badPropertyReader, areaReader, parkingViolationDelimitedFileReader);
+        Processor badInputProcessor = new Processor(parkingViolationDelimitedFileReader, badPropertyReader, areaReader);
         //assertEquals(0.0, badInputProcessor.calculateAverageMarketValueByZipcode(""));
         assertEquals(2140 / 2.0, badInputProcessor.calculateAverageLivableAreaByZipcode("19147"));
         assertEquals(0.0, badInputProcessor.calculateAverageLivableAreaByZipcode("19104"));
@@ -215,10 +217,10 @@ public class ProcessorTester {
     }
     
     @Test
-    void testBadInputsForMarketValuePerCapita() {
+    void testBadInputsForMarketValuePerCapita() throws FileNotFoundException {
         Reader<Map<String, Area>> badAreaReader = new AreaDelimitedFileReader("population-bad1.txt", true, " ");
         Reader<List<Property>> badPropertyReader = new PropertyDelimitedFileReader("properties-test-bad.csv",true,",");
-        Processor badInputProcessor = new Processor(badPropertyReader, badAreaReader, parkingViolationDelimitedFileReader);
+        Processor badInputProcessor = new Processor(parkingViolationDelimitedFileReader, badPropertyReader, badAreaReader);
         assertEquals(282900.0 / 100.0, badInputProcessor.calculateResidentialMarketValuePerCapita("19147"));
         assertEquals(0.0, badInputProcessor.calculateResidentialMarketValuePerCapita("19104"));
         assertEquals(0.0, badInputProcessor.calculateResidentialMarketValuePerCapita("19133"));

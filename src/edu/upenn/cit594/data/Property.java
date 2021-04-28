@@ -3,9 +3,9 @@ package edu.upenn.cit594.data;
 import java.util.Objects;
 
 public class Property {
-    public Double marketValue;
-    public Double totalLivableArea;
-    public String zipcode;
+    private double marketValue;
+    private double totalLivableArea;
+    private String zipcode;
 
     public Property(Double marketValue, Double totalLivableArea, String zipcode) {
         this.marketValue = marketValue;
@@ -16,9 +16,9 @@ public class Property {
     @Override
     public String toString() {
         return "Property{" +
-                "marketValue=" + marketValue +
-                ", totalLivableArea=" + totalLivableArea +
-                ", zipcode='" + zipcode + '\'' +
+                "marketValue=" + getMarketValue() +
+                ", totalLivableArea=" + getTotalLivableArea() +
+                ", zipcode='" + getZipcode() + '\'' +
                 '}';
     }
 
@@ -27,11 +27,23 @@ public class Property {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Property property = (Property) o;
-        return Double.compare(property.marketValue, marketValue) == 0 && Double.compare(property.totalLivableArea, totalLivableArea) == 0 && Objects.equals(zipcode, property.zipcode);
+        return Double.compare(property.getMarketValue(), getMarketValue()) == 0 && Double.compare(property.getTotalLivableArea(), getTotalLivableArea()) == 0 && Objects.equals(getZipcode(), property.getZipcode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(marketValue, totalLivableArea, zipcode);
+        return Objects.hash(getMarketValue(), getTotalLivableArea(), getZipcode());
+    }
+    
+    public Double getMarketValue() {
+        return marketValue;
+    }
+    
+    public Double getTotalLivableArea() {
+        return totalLivableArea;
+    }
+    
+    public String getZipcode() {
+        return zipcode;
     }
 }

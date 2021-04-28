@@ -3,6 +3,7 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.utils.Utils;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class PropertyDelimitedFileReader extends DelimitedFileReader<List<Proper
     private int totalLivableAreaIndex;
     private int marketValueIndex;
 
-    public PropertyDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
+    public PropertyDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) throws FileNotFoundException {
         super(fileName, hasHeaders, delimitBy);
     }
     

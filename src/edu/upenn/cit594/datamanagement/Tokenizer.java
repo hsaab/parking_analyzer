@@ -9,7 +9,7 @@ public class Tokenizer {
     private String inlineDelimiter;
     private Pattern matchPattern;
 
-    Tokenizer(String inlineDelimiter) {
+    public Tokenizer(String inlineDelimiter) {
         this.inlineDelimiter = inlineDelimiter;
         this.matchPattern = Pattern.compile( // matches with...
                 "\"[^\"]*\"" + inlineDelimiter // double quotes followed by the inlineDelimiter ("Shapiro, Eric", => "Shapiro, Eric",)

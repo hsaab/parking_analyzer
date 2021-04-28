@@ -3,15 +3,15 @@ package edu.upenn.cit594.data;
 import java.util.Date;
 
 public class ParkingViolation {
-    public Date date;
-    public Double fine;
-    public String violation;
-    public String plateId;
-    public String state;
+    private Date date;
+    private double fine;
+    private String violation;
+    private String plateId;
+    private String state;
     public String ticketNumber;
     public String zipcode;
 
-    public ParkingViolation(Date date, Double fine, String violation, String plateId,
+    public ParkingViolation(Date date, double fine, String violation, String plateId,
                             String state, String ticketNumber, String zipcode) {
         this.date = date;
         this.fine = fine;
@@ -22,18 +22,38 @@ public class ParkingViolation {
         this.zipcode = zipcode;
     }
 
-    public ParkingViolation(Double fine, String stateOfVehiclePlate, String zipcode) {
+    public ParkingViolation(double fine, String stateOfVehiclePlate, String zipcode) {
         this.fine = fine;
-        this.state = state;
+        this.state = getState();
         this.zipcode = zipcode;
     }
 
     @Override
     public String toString() {
         return "ParkingViolation{" +
-                "fine=" + fine +
-                ", stateOfVehiclePlate='" + state + '\'' +
+                "fine=" + getFine() +
+                ", stateOfVehiclePlate='" + getState() + '\'' +
                 ", zipcode='" + zipcode + '\'' +
                 '}';
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+    
+    public Double getFine() {
+        return fine;
+    }
+    
+    public String getViolation() {
+        return violation;
+    }
+    
+    public String getPlateId() {
+        return plateId;
+    }
+    
+    public String getState() {
+        return state;
     }
 }

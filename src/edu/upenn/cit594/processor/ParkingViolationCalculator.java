@@ -17,7 +17,7 @@ public class ParkingViolationCalculator {
         for (Map.Entry<String, ParkingViolationMetrics> entry : zipcodeToParkingViolationMetricsMap.entrySet()) {
             String zipcode = entry.getKey();
             double sumFines = entry.getValue().sum;
-            double population = areaMap.get(entry.getKey()).population;
+            double population = areaMap.get(entry.getKey()).getPopulation();
             double finesPerCapita = sumFines / population;
             if (sumFines == 0 || population == 0 || Double.isNaN(finesPerCapita)) { // ignore zipcodes with NaN or 0 in fines
                 continue;
@@ -30,7 +30,7 @@ public class ParkingViolationCalculator {
 
     protected Map<String, ParkingViolationMetrics> buildParkingViolationMetricsByZipcode(Map<String, Area> areaMap, List<ParkingViolation> violations) {
         for (ParkingViolation violation : violations) {
-            if (areaMap.containsKey(violation.zipcode) && violation.state.equals("PA")) { // if the zipcode of this violation isn't in areaMap, skip it
+            if (areaMap.containsKey(violation.zipcode) && violation.getState().equals("PA")) { // if the zipcode of this violation isn't in areaMap, skip it
                 if (this.zipcodeToParkingViolationMetricsMap.containsKey(violation.zipcode)) {
                     ParkingViolationMetrics parkingViolationMetrics = this.zipcodeToParkingViolationMetricsMap.get(violation.zipcode);
                     parkingViolationMetrics.sumAndCountMetric(violation);

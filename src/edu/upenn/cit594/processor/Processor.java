@@ -1,8 +1,6 @@
 package edu.upenn.cit594.processor;
 
-import edu.upenn.cit594.data.Area;
-import edu.upenn.cit594.data.ParkingViolation;
-import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.data.*;
 import edu.upenn.cit594.datamanagement.DataStore;
 import edu.upenn.cit594.datamanagement.Reader;
 
@@ -12,32 +10,32 @@ import java.util.Map;
 import java.util.Set;
 
 public class Processor {
+    private Reader<List<ParkingViolation>> parkingViolationReader;
     private Reader<List<Property>> propertyReader;
     private Reader<Map<String,Area>> areaReader;
-    private Reader<List<ParkingViolation>> parkingViolationReader;
-
-    private AreaCalculator areaCalculator;
+    
     private ParkingViolationCalculator parkingViolationCalculator;
     private PropertyCalculator propertyCalculator;
+    private AreaCalculator areaCalculator;
 
     private Map<Reader<?>, DataStore<?>> readerToDataStoreMap;
     
-    public Processor(Reader<List<Property>> propertyReader, Reader<Map<String,Area>> areaReader, Reader<List<ParkingViolation>> parkingViolationReader) {
+    public Processor(Reader<List<ParkingViolation>> parkingViolationReader, Reader<List<Property>> propertyReader, Reader<Map<String,Area>> areaReader) {
+        this.parkingViolationReader = parkingViolationReader;
         this.propertyReader = propertyReader;
         this.areaReader = areaReader;
-        this.parkingViolationReader = parkingViolationReader;
-
-        this.areaCalculator = new AreaCalculator();
+    
         this.parkingViolationCalculator = new ParkingViolationCalculator();
         this.propertyCalculator = new PropertyCalculator();
+        this.areaCalculator = new AreaCalculator();
 
         readerToDataStoreMap = new HashMap<>();
     }
 
     // AREA CALCULATIONS
     public int sumPopulations() {
-        if(areaCalculator.populationSum != 0) {
-            return areaCalculator.populationSum;
+        if(areaCalculator.getPopulationSum() != 0) {
+            return areaCalculator.getPopulationSum();
         }
 
         Map<String,Area> areaMap = getReaderData(areaReader);

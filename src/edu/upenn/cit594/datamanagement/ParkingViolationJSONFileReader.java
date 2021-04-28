@@ -4,12 +4,13 @@ import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.utils.Utils;
 import org.json.simple.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingViolation>> {
-    public ParkingViolationJSONFileReader(String fileName) {
+    public ParkingViolationJSONFileReader(String fileName) throws FileNotFoundException {
         super(fileName);
     }
     

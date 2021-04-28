@@ -3,6 +3,7 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.logging.Logger;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
     private boolean hasHeaders;
     private Tokenizer tokenizer;
 
-    public DelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
+    public DelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) throws FileNotFoundException {
         super(fileName);
         this.hasHeaders = hasHeaders;
 
@@ -21,10 +22,8 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
     public DataStore<T> read() {
         String line = null;
         initializeDataStore(); // sets/resets dataStore to empty version of T so updateDataStore works
-        Logger.getLogger().log(super.fileName);
-        try {
-            BufferedReader br = new BufferedReader(new java.io.FileReader(this.fileName));
-            
+        Logger.getLogger().log(super.getFileName());
+        try (BufferedReader br = new BufferedReader(new java.io.FileReader(this.getFileName()))) {
             if (this.hasHeaders) {
                 line = br.readLine();
                 this.headerList = this.tokenizer.split(line);

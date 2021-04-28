@@ -11,19 +11,21 @@ public class Logger {
     
     private Logger(String filename) {
         try {
-            out = new PrintWriter(new FileWriter(filename));
+            out = new PrintWriter(new FileWriter(filename, true));
         } catch (IOException e) {
             throw new RuntimeException("IO Exception for Logger");
         }
     }
     
+    
     /**
      * Get instance of Logger.
      * @return the logger
+     * @throws IllegalStateException if filename hasn't been set yet using setFilename method
      */
     public static Logger getLogger() throws IllegalStateException {
         if (filename == null) {
-            throw new IllegalStateException("must set filename first");
+            throw new IllegalStateException("Must set filename first");
         }
         
         if (instance == null) {
@@ -36,13 +38,14 @@ public class Logger {
     
     /**
      * Sets file to log to.
-     * Can only be used once.
+     * Can only be set once.
      * @param filename filename of file to log to
+     * @throws IllegalStateException if this method is invoked more than once
      */
-    public static void setFilename(String filename) throws UnsupportedOperationException {
-        if (filename == null) throw new IllegalArgumentException("filename must be non-null.");
+    public static void setFilename(String filename) throws IllegalStateException {
+        if (filename == null) throw new IllegalArgumentException("Filename must be non-null.");
         if (Logger.filename != null) {
-            throw new UnsupportedOperationException("filename can only be set once");
+            throw new IllegalStateException("Filename is already " + filename + ". Filename can only be set once");
         }
         
         Logger.filename = filename;

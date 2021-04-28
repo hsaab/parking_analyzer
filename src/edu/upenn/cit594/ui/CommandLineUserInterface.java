@@ -1,6 +1,6 @@
 package edu.upenn.cit594.ui;
 
-import edu.upenn.cit594.data.Area;
+import edu.upenn.cit594.data.*;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Processor;
 import edu.upenn.cit594.utils.Utils;
@@ -15,7 +15,10 @@ public class CommandLineUserInterface {
     private Processor processor;
     private Command[] commands;
     
-    
+    /**
+     * Constructor
+     * @param processor the Processor handling the calculations/logic
+     */
     public CommandLineUserInterface(Processor processor) {
         this.in = new Scanner(System.in);
         this.processor = processor;
@@ -53,6 +56,12 @@ public class CommandLineUserInterface {
         return choice;
     }
     
+    /**
+     * Determines if the provided choice number corresponds to a valid command.
+     * That is, choice is a valid index within commands field.
+     * @param choice the number of command to run in commands
+     * @return if the integer representing choice is valid
+     */
     private boolean isValidCommand(int choice) {
         return choice >= 0 && choice < commands.length;
     }
@@ -145,12 +154,37 @@ public class CommandLineUserInterface {
                         Set<Area> areaByHighestMarketValuePerCapita = processor.calculateFineCountForHighestMarketValuePerCapitaAreas();
 
                         for(Area area : areaByHighestMarketValuePerCapita) {
-                            System.out.println("Zipcode: " + area.zipcode + "  market value: " + formatter.format(area.marketValuePerCapita) + "  number of fines: " + area.fineCount);
+                            System.out.println("Zipcode: " + area.getZipcode() + "  market value: " + formatter.format(area.getMarketValuePerCapita()) + "  number of fines: " + area.getFineCount());
                         }
                     }
                 }
         };
         
         return commands;
+    }
+    
+    /**
+     * Represents a command that the user could choose on command line.
+     * Must override execute with the action to perform.
+     */
+    private abstract static class Command {
+        private String name;
+        
+        public Command(String name) {
+            this.name = name;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
+        @Override
+        public String toString() {
+            return "Command{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+        
+        public abstract void execute();
     }
 }

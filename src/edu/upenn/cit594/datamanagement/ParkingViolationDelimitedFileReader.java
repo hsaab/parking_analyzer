@@ -3,12 +3,13 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.utils.Utils;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<List<ParkingViolation>> {
-    public ParkingViolationDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) {
+    public ParkingViolationDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) throws FileNotFoundException {
         super(fileName, hasHeaders, delimitBy);
     }
     

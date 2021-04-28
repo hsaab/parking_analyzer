@@ -3,12 +3,13 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.data.Area;
 import edu.upenn.cit594.utils.Utils;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Area>> {
-    public AreaDelimitedFileReader(String fileName, boolean hasHeaders, String delimitedBy) {
+    public AreaDelimitedFileReader(String fileName, boolean hasHeaders, String delimitedBy) throws FileNotFoundException {
         super(fileName, hasHeaders, delimitedBy);
     }
     
@@ -19,7 +20,7 @@ public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Are
     public void updateDataStore(List<String> dataList) {
         Area area = createArea(dataList);
         if (area == null) return;
-        dataStore.getData().put(area.zipcode, area);
+        dataStore.getData().put(area.getZipcode(), area);
     }
 
     @Override

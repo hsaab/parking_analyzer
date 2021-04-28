@@ -7,10 +7,10 @@ import edu.upenn.cit594.utils.MarketValueComparator;
 import java.util.*;
 
 public class PropertyCalculator {
-    Set<Area> areaSetByMarketValue = new TreeSet<>(new MarketValueComparator());
-    Map<String, Double> averageLivableAreaByZipcode = new HashMap<>();
-    Map<String, Double> averageMarketValueByZipcode = new HashMap<>();
-    Map<String, Double> marketValuePerCapitaByZipcode = new HashMap<>();
+    protected Set<Area> areaSetByMarketValue = new TreeSet<>(new MarketValueComparator());
+    protected Map<String, Double> averageLivableAreaByZipcode = new HashMap<>();
+    protected Map<String, Double> averageMarketValueByZipcode = new HashMap<>();
+    protected Map<String, Double> marketValuePerCapitaByZipcode = new HashMap<>();
 
     public double calculateAverageMarketValueByZipcode(String zipcode, List<Property> properties) {
         double averageMarketValue = calculateAverageByZipcode(zipcode, new MarketValueMetrics(), properties);
@@ -39,7 +39,7 @@ public class PropertyCalculator {
             return 0.0;
         }
     
-        double populationOfZipcode = areas.get(zipcode).population;
+        double populationOfZipcode = areas.get(zipcode).getPopulation();
 
         if(Double.compare(0, populationOfZipcode) == 0) {
             return 0;
@@ -60,14 +60,14 @@ public class PropertyCalculator {
         for (Map.Entry<String, Area> entry : areaMap.entrySet()) {
             Area area = entry.getValue();
 
-            double marketValuePerCapita = calculateResidentialMarketValuePerCapita(area.zipcode, areaMap, properties);
+            double marketValuePerCapita = calculateResidentialMarketValuePerCapita(area.getZipcode(), areaMap, properties);
 
-            int fineCount = zipcodeToParkingViolationMetricsMap.get(area.zipcode) != null ? zipcodeToParkingViolationMetricsMap.get(area.zipcode).count : 0;
+            int fineCount = zipcodeToParkingViolationMetricsMap.get(area.getZipcode()) != null ? zipcodeToParkingViolationMetricsMap.get(area.getZipcode()).count : 0;
 
             area.setMarketValuePerCapita(marketValuePerCapita);
             area.setFineCount(fineCount);
 
-            if(!Double.isNaN(area.marketValuePerCapita)) this.areaSetByMarketValue.add(area);
+            if(!Double.isNaN(area.getMarketValuePerCapita())) this.areaSetByMarketValue.add(area);
         }
 
         return this.areaSetByMarketValue;
@@ -75,7 +75,7 @@ public class PropertyCalculator {
 
     private void computePropertyMetricsByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
         for (Property property : properties) {
-            if (property.zipcode.equals(zipcode)) {
+            if (property.getZipcode().equals(zipcode)) {
                 metrics.sumAndCountMetric(property);
             }
         }

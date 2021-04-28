@@ -5,17 +5,21 @@ import edu.upenn.cit594.data.Area;
 import java.util.Map;
 
 public class AreaCalculator {
-    protected int populationSum = 0;
+    private int populationSum = 0;
 
     protected int sumPopulations(Map<String, Area> areaMap) {
-        if(populationSum != 0) {
-            return populationSum;
+        if (getPopulationSum() != 0) {
+            return getPopulationSum();
         }
 
         for (Map.Entry<String, Area> entry : areaMap.entrySet()) {
-            this.populationSum += entry.getValue().population;
+            this.populationSum = this.getPopulationSum() + (int) entry.getValue().getPopulation();
         }
 
-        return this.populationSum;
+        return this.getPopulationSum();
+    }
+    
+    protected int getPopulationSum() {
+        return populationSum;
     }
 }
