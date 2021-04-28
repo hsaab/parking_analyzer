@@ -11,6 +11,7 @@ public class MarketValueMetrics extends Metrics<Property> {
     }
 
     public void sumAndCountMetric(Property property) {
+        if (Double.isNaN(property.marketValue)) return;
         this.count++;
         this.sum += property.marketValue;
     }

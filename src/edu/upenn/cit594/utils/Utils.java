@@ -63,8 +63,10 @@ public class Utils {
     }
 
     public static String extractZipCodeValue(String zipcode) {
-        if(zipcode.length() > 5) {
+        if(zipcode.length() >= 5) {
             zipcode = zipcode.substring(0, 5);
+        } else {
+            return "";
         }
 
         if(isOnlyDigits(zipcode)) {

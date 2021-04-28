@@ -25,10 +25,13 @@ public class CommandLineUserInterface {
     /**
      * Starts the user interface.
      */
-    public void start() {
-        int choice = promptUserForValidChoice();
-        commands[choice].execute();
-        start(); // prompt again when execution of choice is complete
+    public void run() {
+        int choice;
+        do {
+            choice = promptUserForValidChoice();
+            commands[choice].execute();
+        } while (choice != 0);
+        in.close();
     }
     
     /**
@@ -37,20 +40,21 @@ public class CommandLineUserInterface {
      * @return the choice of calculation as represented by an integer the user has provided
      */
     private int promptUserForValidChoice() {
-        int choice;
-        do {
-            printChoices();
-            String input = in.nextLine();
-            Logger.getLogger().log(input);
-            while (!Utils.isOnlyDigits(input)) {
-                System.out.println(input + " includes non-digits. Please enter a whole number only.");
-                input = in.nextLine();
-                Logger.getLogger().log(input);
-            }
-            choice = Integer.parseInt(input);
-        } while (choice < 0 || choice >= commands.length);
+        printChoices();
+        String input = in.nextLine();
+        Logger.getLogger().log(input);
+        
+        if (!Utils.isOnlyDigits(input) || !isValidCommand(Integer.parseInt(input))) {
+            System.out.println(input + " is not a valid digit. Nice try. Goodbye.");
+            return 0;
+        }
+        int choice = Integer.parseInt(input);
         
         return choice;
+    }
+    
+    private boolean isValidCommand(int choice) {
+        return choice >= 0 && choice < commands.length;
     }
     
     /**
@@ -60,11 +64,9 @@ public class CommandLineUserInterface {
      */
     private String promptUserForValidZipcode() {
         String zip;
-        do {
-            System.out.print("Please provide a 5 digit zipcode: ");
-            zip = in.nextLine();
-            Logger.getLogger().log(zip);
-        } while (zip.length() != 5 || !Utils.isOnlyDigits(zip));
+        System.out.print("Please provide a 5 digit zipcode: ");
+        zip = in.nextLine();
+        Logger.getLogger().log(zip);
         
         return zip;
     }
@@ -113,7 +115,6 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Running...");
 
                         double result = processor.calculateAverageMarketValueByZipcode(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
@@ -123,7 +124,6 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Running...");
 
                         double result = processor.calculateAverageLivableAreaByZipcode(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
@@ -133,7 +133,6 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Running...");
 
                         double result = processor.calculateResidentialMarketValuePerCapita(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
@@ -142,7 +141,6 @@ public class CommandLineUserInterface {
                 new Command("Calculate fine count by zipcode sorted by highest market value per capita") {
                     @Override
                     public void execute() {
-                        System.out.println("Running...");
                         DecimalFormat formatter = new DecimalFormat("$#,###.00");
                         Set<Area> areaByHighestMarketValuePerCapita = processor.calculateFineCountForHighestMarketValuePerCapitaAreas();
 

@@ -39,7 +39,7 @@ public class DataManagementTester {
     @Test
     void testBadAreaDelimitedFileReader() {
         AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
-                "population-bad.txt", false, " "
+                "population-bad1.txt", false, " "
         );
 
         areaDelimitedFileReader.read();

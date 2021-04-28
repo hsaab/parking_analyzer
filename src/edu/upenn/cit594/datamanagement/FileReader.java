@@ -6,12 +6,12 @@ public abstract class FileReader<T> implements Reader<T> {
     public String fileName;
     protected DataStore<T> dataStore;
 
-    FileReader(String fileName) {
+    public FileReader(String fileName) throws Error {
         this.fileName = fileName;
 
         File file = new File(fileName);
 
-        if(!file.exists() || !file.canRead()) {
+        if (!file.exists() || !file.canRead()) {
             throw new Error("File: " + this.fileName + " does not exist or cannot be read.");
         }
     }

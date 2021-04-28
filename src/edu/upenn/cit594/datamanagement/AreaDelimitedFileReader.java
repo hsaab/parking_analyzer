@@ -18,7 +18,7 @@ public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Are
 
     public void updateDataStore(List<String> dataList) {
         Area area = createArea(dataList);
-
+        if (area == null) return;
         dataStore.getData().put(area.zipcode, area);
     }
 
@@ -30,7 +30,7 @@ public class AreaDelimitedFileReader extends DelimitedFileReader<Map<String, Are
     public Area createArea(List<String> dataList) {
         String zipcode = Utils.extractZipcodeValueFromList(dataList, 0);
         double population = Utils.extractDoubleValueFromList(dataList, 1);
-
+        if (zipcode.equals("") || Double.isNaN(population)) return null;
         return new Area(zipcode, population);
     }
 }

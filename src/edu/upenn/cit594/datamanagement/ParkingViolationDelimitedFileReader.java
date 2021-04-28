@@ -37,7 +37,7 @@ public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<Lis
         String state = Utils.extractStringValueFromList(dataList, 4);
         String ticketNumber = Utils.extractStringValueFromList(dataList, 5);
         String zipcode = Utils.extractZipcodeValueFromList(dataList, 6);
-
+        
         return new ParkingViolation(date, fine, violation, plateId, state, ticketNumber, zipcode);
     }
 }

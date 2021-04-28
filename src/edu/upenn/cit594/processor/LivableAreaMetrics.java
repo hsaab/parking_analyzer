@@ -12,6 +12,7 @@ public class LivableAreaMetrics extends Metrics<Property> {
     }
 
     public void sumAndCountMetric(Property property) {
+        if (Double.isNaN(property.totalLivableArea)) return;
         this.count++;
         this.sum += property.totalLivableArea;
     }

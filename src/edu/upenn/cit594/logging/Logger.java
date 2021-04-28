@@ -11,9 +11,9 @@ public class Logger {
     
     private Logger(String filename) {
         try {
-            out = new PrintWriter(new FileOutputStream(filename, true));
-        } catch (FileNotFoundException e) {
-        
+            out = new PrintWriter(new FileWriter(filename));
+        } catch (IOException e) {
+            throw new RuntimeException("IO Exception for Logger");
         }
     }
     

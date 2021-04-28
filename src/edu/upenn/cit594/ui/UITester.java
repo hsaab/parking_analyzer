@@ -20,6 +20,6 @@ public class UITester {
         );
         Processor processor = new Processor(propertyDelimitedFileReader, areaDelimitedFileReader, parkingViolationDelimitedFileReader);
         
-        new CommandLineUserInterface(processor).start();
+        new CommandLineUserInterface(processor).run();
     }
 }
