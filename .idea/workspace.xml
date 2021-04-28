@@ -3,21 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c413e5f4-3258-4b29-b8a5-3e36fd22a63d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/data/Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/AreaDelimitedFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DelimitedFileReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/JSONFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/JSONFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationDelimitedFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/ParkingViolationJSONFileReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/AreaCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/AreaCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/LivableAreaMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValueMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/MarketValueMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Metrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Metrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ParkingViolationCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/ParkingViolationCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Processor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/Processor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/processor/PropertyCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/ui/CommandLineUserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/ui/CommandLineUserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/upenn/cit594/utils/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.DataManagementTester.testBadAreaDelimitedFileReader">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="parking_analyzer" />
@@ -66,64 +54,65 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProcessorTester" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DataManagementTester.testBadAreaDelimitedFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parking_analyzer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upenn.cit594.processor.*" />
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.upenn.cit594.processor" />
-      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.processor.ProcessorTester" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProcessorTester.testCalculateFineCountForHighestMarketValuePerCapitaAreas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="parking_analyzer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.upenn.cit594.processor.ParkingViolationCalculations" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.upenn.cit594.processor" />
-      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.processor.ProcessorTester" />
-      <option name="METHOD_NAME" value="testCalculateFineCountForHighestMarketValuePerCapitaAreas" />
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testBadAreaDelimitedFileReader" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProcessorTester.testCalculateResidentialMarketValuePerCapita" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DataManagementTester.testBadParkingViolationDelimitedFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parking_analyzer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upenn.cit594.processor.ParkingViolationCalculations" />
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.upenn.cit594.processor" />
-      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.processor.ProcessorTester" />
-      <option name="METHOD_NAME" value="testCalculateResidentialMarketValuePerCapita" />
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testBadParkingViolationDelimitedFileReader" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProcessorTester.testTotalFinesPerCapita" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DataManagementTester.testBadParkingViolationJSON" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parking_analyzer" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upenn.cit594.processor.ParkingViolationCalculations" />
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="edu.upenn.cit594.processor" />
-      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.processor.ProcessorTester" />
-      <option name="METHOD_NAME" value="testTotalFinesPerCapita" />
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testBadParkingViolationJSON" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataManagementTester.testBadPropertyDelimitedFileReader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="parking_analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upenn.cit594.datamanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upenn.cit594.datamanagement" />
+      <option name="MAIN_CLASS_NAME" value="edu.upenn.cit594.datamanagement.DataManagementTester" />
+      <option name="METHOD_NAME" value="testBadPropertyDelimitedFileReader" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -131,11 +120,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DataManagementTester.testBadAreaDelimitedFileReader" />
+        <item itemvalue="JUnit.DataManagementTester.testBadParkingViolationDelimitedFileReader" />
+        <item itemvalue="JUnit.DataManagementTester.testBadParkingViolationJSON" />
+        <item itemvalue="JUnit.DataManagementTester.testBadPropertyDelimitedFileReader" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.ProcessorTester.testTotalFinesPerCapita" />
-        <item itemvalue="JUnit.ProcessorTester" />
-        <item itemvalue="JUnit.ProcessorTester.testCalculateFineCountForHighestMarketValuePerCapitaAreas" />
-        <item itemvalue="JUnit.ProcessorTester.testCalculateResidentialMarketValuePerCapita" />
       </list>
     </recent_temporary>
   </component>
@@ -190,29 +179,37 @@
     <state x="402" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.829@0.23.1440.829" timestamp="1618980363392" />
     <state x="546" y="-1417" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619489713803" />
     <state x="307" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.831@0.23.1440.831" timestamp="1619373662688" />
-    <state width="2518" height="626" key="GridCell.Tab.0.bottom" timestamp="1619501754066">
+    <state x="1018" y="-978" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1619566329689">
+      <screen x="0" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="1018" y="-978" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619566329689" />
+    <state width="2518" height="273" key="GridCell.Tab.0.bottom" timestamp="1619567050313">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.bottom/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
     <state width="2518" height="626" key="GridCell.Tab.0.bottom/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754066" />
+    <state width="2518" height="273" key="GridCell.Tab.0.bottom/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619567050313" />
     <state width="1398" height="642" key="GridCell.Tab.0.bottom/0.23.1440.831@0.23.1440.831" timestamp="1619410065512" />
-    <state width="2518" height="626" key="GridCell.Tab.0.center" timestamp="1619501754065">
+    <state width="2518" height="273" key="GridCell.Tab.0.center" timestamp="1619567050312">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.center/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
     <state width="2518" height="626" key="GridCell.Tab.0.center/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754065" />
+    <state width="2518" height="273" key="GridCell.Tab.0.center/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619567050312" />
     <state width="1398" height="642" key="GridCell.Tab.0.center/0.23.1440.831@0.23.1440.831" timestamp="1619410065511" />
-    <state width="2518" height="626" key="GridCell.Tab.0.left" timestamp="1619501754065">
+    <state width="2518" height="273" key="GridCell.Tab.0.left" timestamp="1619567050312">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.left/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
     <state width="2518" height="626" key="GridCell.Tab.0.left/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754065" />
+    <state width="2518" height="273" key="GridCell.Tab.0.left/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619567050312" />
     <state width="1398" height="642" key="GridCell.Tab.0.left/0.23.1440.831@0.23.1440.831" timestamp="1619410065511" />
-    <state width="2518" height="626" key="GridCell.Tab.0.right" timestamp="1619501754066">
+    <state width="2518" height="273" key="GridCell.Tab.0.right" timestamp="1619567050313">
       <screen x="0" y="-1417" width="2560" height="1417" />
     </state>
     <state width="1398" height="39" key="GridCell.Tab.0.right/0.23.1440.829@0.23.1440.829" timestamp="1618989339409" />
     <state width="2518" height="626" key="GridCell.Tab.0.right/0.23.1440.830/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619501754066" />
+    <state width="2518" height="273" key="GridCell.Tab.0.right/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619567050313" />
     <state width="1398" height="642" key="GridCell.Tab.0.right/0.23.1440.831@0.23.1440.831" timestamp="1619410065512" />
     <state x="602" y="-1164" key="SettingsEditor" timestamp="1619491573334">
       <screen x="0" y="-1417" width="2560" height="1417" />
@@ -230,10 +227,18 @@
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="375" y="201" width="689" height="472" key="find.popup/0.23.1440.831@0.23.1440.831" timestamp="1619055043050" />
+    <state x="709" y="-1130" key="new project wizard" timestamp="1619566810373">
+      <screen x="0" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="709" y="-1130" key="new project wizard/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619566810373" />
     <state x="426" y="63" key="refactoring.ChangeSignatureDialog" timestamp="1619058262964">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
     <state x="426" y="63" key="refactoring.ChangeSignatureDialog/0.23.1440.831@0.23.1440.831" timestamp="1619058262964" />
+    <state x="945" y="-386" key="run.anything.popup" timestamp="1619566333423">
+      <screen x="0" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="945" y="-386" key="run.anything.popup/0.23.1440.831/0.-1417.2560.1417@0.-1417.2560.1417" timestamp="1619566333423" />
     <state x="385" y="178" width="670" height="676" key="search.everywhere.popup" timestamp="1619054778081">
       <screen x="0" y="23" width="1440" height="831" />
     </state>
@@ -242,14 +247,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/edu/upenn/cit594/datamanagement/DataManagementTester.java</url>
-          <line>38</line>
-          <properties class="edu.upenn.cit594.datamanagement.DataManagementTester" method="testParkingViolationDelimitedFileReader">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/upenn/cit594/processor/ProcessorTester.java</url>
           <line>127</line>

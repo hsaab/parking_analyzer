@@ -18,6 +18,7 @@ public class DataManagementTester {
     static void setup() {
         Logger.setFilename("test.txt");
     }
+
     @Test
     void testAreaDelimitedFileReader() {
         AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
@@ -33,6 +34,86 @@ public class DataManagementTester {
         assertEquals(dataStore.get("19102").zipcode, "19102");
         assertEquals(dataStore.get("19118").population, 9808);
         assertEquals(dataStore.get("19118").zipcode, "19118");
+    }
+
+    @Test
+    void testBadAreaDelimitedFileReader() {
+        AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
+                "population-bad.txt", false, " "
+        );
+
+        areaDelimitedFileReader.read();
+
+        Map<String, Area> dataStore = areaDelimitedFileReader.dataStore.getData();
+
+        assertEquals(dataStore.size(), 48);
+        assertEquals(dataStore.get("19102").population, Double.NaN);
+        assertEquals(dataStore.get("19102").zipcode, "19102");
+
+        assertEquals(dataStore.get("19103").population, Double.NaN);
+        assertEquals(dataStore.get("19103").zipcode, "19103");
+    }
+
+    @Test
+    void testBadPropertyDelimitedFileReader() {
+        // Played with some of the values to make them bad
+        PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader(
+                "properties-test-bad.csv", true, ","
+        );
+
+        propertyDelimitedFileReader.read();
+
+        List<Property> dataStore = propertyDelimitedFileReader.dataStore.getData();
+
+        assertEquals(dataStore.get(0).marketValue, 0.0);
+        assertEquals(dataStore.get(0).zipcode, "19147");
+        assertEquals(dataStore.get(0).totalLivableArea, 0.0);
+
+        assertEquals(dataStore.get(3).marketValue, Double.NaN);
+        assertEquals(dataStore.get(3).zipcode, "19104");
+        assertEquals(dataStore.get(3).totalLivableArea, 0.0);
+
+        assertEquals(dataStore.get(4).marketValue, Double.NaN);
+        assertEquals(dataStore.get(4).zipcode, "");
+        assertEquals(dataStore.get(4).totalLivableArea, Double.NaN);
+    }
+
+    @Test
+    void testBadParkingViolationJSON() {
+        ParkingViolationJSONFileReader parkingViolationJSONFileReader = new ParkingViolationJSONFileReader("parking-bad.json");
+
+        parkingViolationJSONFileReader.read();
+
+        List<ParkingViolation> dataStore = parkingViolationJSONFileReader.dataStore.getData();
+
+        assertEquals(dataStore.get(0).date, null);
+        assertEquals(dataStore.get(0).fine, Double.NaN);
+        assertEquals(dataStore.get(0).violation, "345");
+        assertEquals(dataStore.get(0).plateId, "1322731");
+        assertEquals(dataStore.get(0).state, "PA");
+        assertEquals(dataStore.get(0).ticketNumber, "2905938");
+        assertEquals(dataStore.get(0).zipcode, "19104");
+    }
+
+    @Test
+    void testBadParkingViolationDelimitedFileReader() {
+        ParkingViolationDelimitedFileReader parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
+                "parking-bad.csv", false, ","
+        );
+
+        parkingViolationDelimitedFileReader.read();
+
+        List<ParkingViolation> dataStore = parkingViolationDelimitedFileReader.dataStore.getData();
+
+        assertEquals(dataStore.get(0).date, null);
+        assertEquals(dataStore.get(0).fine, Double.NaN);
+        assertEquals(dataStore.get(0).violation, "METER EXPIRED CC");
+        assertEquals(dataStore.get(0).plateId, "1322731");
+        assertEquals(dataStore.get(0).state, "PA");
+        assertEquals(dataStore.get(0).ticketNumber, "2905938");
+        assertEquals(dataStore.get(0).zipcode, "19104");
+
+        assertEquals(dataStore.get(1).zipcode, "");
     }
 
     @Test

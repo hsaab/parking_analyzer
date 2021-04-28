@@ -3,9 +3,8 @@ package edu.upenn.cit594.datamanagement;
 import edu.upenn.cit594.logging.Logger;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 public abstract class DelimitedFileReader<T> extends FileReader<T> {
     protected List<String> headerList;
@@ -37,10 +36,8 @@ public abstract class DelimitedFileReader<T> extends FileReader<T> {
 
                 updateDataStore(dataList);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("IO Exception in DelimitedFileReader.");
         }
 
         return dataStore;
