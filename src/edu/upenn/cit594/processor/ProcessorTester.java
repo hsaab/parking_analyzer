@@ -152,7 +152,7 @@ public class ProcessorTester {
     void testCalculateFineCountForHighestMarketValuePerCapitaAreas() {
         Set<Area> areaByMarketValue = processorCsv.calculateFineCountForHighestMarketValuePerCapitaAreas();
 
-        assertEquals(48, areaByMarketValue.size());
+        assertEquals(29, areaByMarketValue.size());
 
         Iterator<Area> iterator = areaByMarketValue.iterator();
         double prevMarketValuePerCapita = Double.POSITIVE_INFINITY;

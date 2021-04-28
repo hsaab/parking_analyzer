@@ -12,12 +12,23 @@ public class PropertyCalculator {
     Map<String, Double> averageMarketValueByZipcode = new HashMap<>();
     Map<String, Double> marketValuePerCapitaByZipcode = new HashMap<>();
 
+    public double calculateAverageMarketValueByZipcode(String zipcode, List<Property> properties) {
+        double averageMarketValue = calculateAverageByZipcode(zipcode, new MarketValueMetrics(), properties);
+        averageMarketValueByZipcode.put(zipcode, averageMarketValue);
+
+        return averageMarketValue;
+    }
+
+    public double calculateAverageLivableAreaByZipcode(String zipcode, List<Property> properties) {
+        double averageLivableArea = calculateAverageByZipcode(zipcode, new LivableAreaMetrics(), properties);
+        averageLivableAreaByZipcode.put(zipcode, averageLivableArea);
+
+        return averageLivableArea;
+    }
+
     protected double calculateAverageByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
         this.computePropertyMetricsByZipcode(zipcode, metrics, properties);
-
         double averageByZipcode = metrics.average();
-
-        this.putAverageToMapByZipcode(zipcode, metrics, averageByZipcode);
 
         return averageByZipcode;
     }
@@ -62,16 +73,6 @@ public class PropertyCalculator {
             if (property.zipcode.equals(zipcode)) {
                 metrics.sumAndCountMetric(property);
             }
-        }
-    }
-
-    private void putAverageToMapByZipcode(String zipcode, Metrics metrics, double averageByZipcode) {
-        if(metrics.getClass().getSimpleName().equals(LivableAreaMetrics.className)) {
-            averageLivableAreaByZipcode.put(zipcode, averageByZipcode);
-        }
-
-        if(metrics.getClass().getSimpleName().equals(MarketValueMetrics.className)) {
-            averageMarketValueByZipcode.put(zipcode, averageByZipcode);
         }
     }
 }

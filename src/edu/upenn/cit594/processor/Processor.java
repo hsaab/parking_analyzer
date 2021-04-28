@@ -79,7 +79,7 @@ public class Processor {
 
         List<Property> properties = getReaderData(propertyReader);
 
-       return propertyCalculator.calculateAverageByZipcode(zipcode, new MarketValueMetrics(), properties);
+       return propertyCalculator.calculateAverageMarketValueByZipcode(zipcode, properties);
     }
 
     public double calculateAverageLivableAreaByZipcode(String zipcode) {
@@ -89,7 +89,7 @@ public class Processor {
 
         List<Property> properties = getReaderData(propertyReader);
 
-        return propertyCalculator.calculateAverageByZipcode(zipcode, new LivableAreaMetrics(), properties);
+        return propertyCalculator.calculateAverageLivableAreaByZipcode(zipcode, properties);
     }
 
     public double calculateResidentialMarketValuePerCapita(String zipcode) {

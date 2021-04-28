@@ -66,7 +66,12 @@ public class Utils {
         if(zipcode.length() > 5) {
             zipcode = zipcode.substring(0, 5);
         }
+
+        if(isOnlyDigits(zipcode)) {
             return zipcode;
+        } else {
+            return "";
+        }
     }
 
     public static String extractZipcodeValueFromJSON(JSONObject object) {
