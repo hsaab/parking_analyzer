@@ -3,7 +3,7 @@ package edu.upenn.cit594.processor;
 import edu.upenn.cit594.data.Property;
 
 public class LivableAreaMetrics extends Metrics<Property> {
-    LivableAreaMetrics() {
+    public LivableAreaMetrics() {
         super();
     }
     

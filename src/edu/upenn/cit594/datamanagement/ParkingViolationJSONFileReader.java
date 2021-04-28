@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingViolation>> {
-
     public ParkingViolationJSONFileReader(String fileName) {
         super(fileName);
     }
@@ -27,14 +26,13 @@ public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingV
     }
 
     public ParkingViolation createParkingViolation(JSONObject rawObject) {
-
         Date date = Utils.getDateTime(rawObject.get("date").toString());
-        Double fine = Double.parseDouble(rawObject.get("fine").toString());
-        String violation = rawObject.get("violation").toString();
-        String plateId = rawObject.get("plate_id").toString();
-        String state = rawObject.get("state").toString();
-        String ticketNumber = rawObject.get("ticket_number").toString();
-        String zipcode = rawObject.get("zip_code").toString();
+        double fine = Utils.extractDoubleFromJSON(rawObject, "fine");
+        String violation = Utils.extractStringFromJSON(rawObject, "violation");
+        String plateId = Utils.extractStringFromJSON(rawObject, "plate_id");
+        String state = Utils.extractStringFromJSON(rawObject, "state");
+        String ticketNumber = Utils.extractStringFromJSON(rawObject, "ticket_number");
+        String zipcode = Utils.extractZipcodeValueFromJSON(rawObject);
 
         return new ParkingViolation(date, fine, violation, plateId, state, ticketNumber, zipcode);
     }

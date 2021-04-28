@@ -1,12 +1,12 @@
 package edu.upenn.cit594.data;
 
 public class Area {
-    public final String zipcode;
-    public final int population;
+    public String zipcode;
+    public double population;
     public int fineCount;
     public double marketValuePerCapita;
 
-    public Area(String zipcode, int population) {
+    public Area(String zipcode, double population) {
         this.zipcode = zipcode;
         this.population = population;
     }

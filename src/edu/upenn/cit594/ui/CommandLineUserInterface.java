@@ -114,6 +114,7 @@ public class CommandLineUserInterface {
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
                         System.out.println("Running...");
+
                         double result = processor.calculateAverageMarketValueByZipcode(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
                     }
@@ -123,6 +124,7 @@ public class CommandLineUserInterface {
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
                         System.out.println("Running...");
+
                         double result = processor.calculateAverageLivableAreaByZipcode(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
                     }
@@ -132,6 +134,7 @@ public class CommandLineUserInterface {
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
                         System.out.println("Running...");
+
                         double result = processor.calculateResidentialMarketValuePerCapita(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
                     }
@@ -140,9 +143,7 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         System.out.println("Running...");
-
                         DecimalFormat formatter = new DecimalFormat("$#,###.00");
-
                         Set<Area> areaByHighestMarketValuePerCapita = processor.calculateFineCountForHighestMarketValuePerCapitaAreas();
 
                         for(Area area : areaByHighestMarketValuePerCapita) {

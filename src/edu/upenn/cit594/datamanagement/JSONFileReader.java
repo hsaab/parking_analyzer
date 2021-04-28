@@ -18,12 +18,13 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
         Object obj = null;
         initializeDataStore(); // sets/resets dataStore to empty version of T so updateDataStore works
         Logger.getLogger().log(super.fileName);
+
         try {
             obj = new JSONParser().parse(new java.io.FileReader(this.fileName));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("IO Exception in JSONFileReader.");
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Invalid JSON within JSONFileReader.");
         }
 
         JSONArray JSONArray = (JSONArray) obj;
@@ -38,8 +39,7 @@ public abstract class JSONFileReader<T> extends FileReader<T> {
 
         return dataStore;
     }
-    
-    @Override
+
     public abstract void initializeDataStore();
     public abstract void updateDataStore(JSONObject jsonObject);
 }

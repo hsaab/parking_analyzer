@@ -5,7 +5,6 @@ import edu.upenn.cit594.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<List<ParkingViolation>> {
@@ -32,12 +31,12 @@ public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<Lis
 
     public ParkingViolation createParkingViolation(List<String> dataList) {
         Date date = Utils.getDateTime(dataList.get(0));
-        Double fine = Double.parseDouble(dataList.get(1));
-        String violation = dataList.get(2);
-        String plateId = dataList.get(3);
-        String state = dataList.get(4);
-        String ticketNumber = dataList.get(5);
-        String zipcode = Utils.extractZipCodeValue(dataList.get(6));
+        double fine = Utils.extractDoubleValueFromList(dataList, 1);
+        String violation = Utils.extractStringValueFromList(dataList, 2);
+        String plateId = Utils.extractStringValueFromList(dataList, 3);
+        String state = Utils.extractStringValueFromList(dataList, 4);
+        String ticketNumber = Utils.extractStringValueFromList(dataList, 5);
+        String zipcode = Utils.extractZipcodeValueFromList(dataList, 6);
 
         return new ParkingViolation(date, fine, violation, plateId, state, ticketNumber, zipcode);
     }
