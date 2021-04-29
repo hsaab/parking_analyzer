@@ -27,6 +27,10 @@ public class PropertyCalculator {
     }
 
     protected double calculateAverageByZipcode(String zipcode, Metrics metrics, List<Property> properties) {
+        if(zipcode.isEmpty()) {
+            return 0.0;
+        }
+        
         this.computePropertyMetricsByZipcode(zipcode, metrics, properties);
         double averageByZipcode = metrics.average();
 
@@ -36,7 +40,7 @@ public class PropertyCalculator {
     protected double calculateResidentialMarketValuePerCapita(String zipcode, Map<String, Area> areas, List<Property> properties) {
         double populationOfZipcode = areas.get(zipcode).population;
 
-        if(Double.compare(0, populationOfZipcode) == 0) {
+        if(Double.compare(0, populationOfZipcode) == 0 || zipcode.isEmpty()) {
             return 0;
         }
 
