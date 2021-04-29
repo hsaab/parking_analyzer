@@ -8,7 +8,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+// Reads in a delimited file of parking violation values and converts to a List of ParkingViolation objects
 public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<List<ParkingViolation>> {
+    /**
+     * Constructor
+     * @param fileName the filename to read area data from
+     * @param hasHeaders if the file has headers
+     * @param delimitedBy the delimiter between values
+     * @throws FileNotFoundException if the file cannot be found or opened
+     */
     public ParkingViolationDelimitedFileReader(String fileName, boolean hasHeaders, String delimitBy) throws FileNotFoundException {
         super(fileName, hasHeaders, delimitBy);
     }
@@ -27,9 +35,14 @@ public class ParkingViolationDelimitedFileReader extends DelimitedFileReader<Lis
 
     @Override
     public void setHeaderIndices() {
-        // NO HEADERS FOR THE CSV FILE
+        // no indices to set for this reader
     }
-
+    
+    /**
+     * Parses the provided dataList into a ParkingViolation.
+     * @param dataList the list of values with ParkingViolation data
+     * @return the ParkingViolation being parsed from this data
+     */
     public ParkingViolation createParkingViolation(List<String> dataList) {
         Date date = Utils.getDateTime(dataList.get(0));
         double fine = Utils.extractDoubleValueFromList(dataList, 1);

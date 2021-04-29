@@ -10,7 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+// Utilities to extract values in various formats
 public class Utils {
+    /**
+     * Parses the provided string into a Date object
+     * @param string the date in string format
+     * @return the Date object parsed from provided string
+     */
     public static Date getDateTime(String string) {
         Date dateTime;
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -23,14 +29,26 @@ public class Utils {
 
         return dateTime;
     }
-
+    
+    /**
+     * Given a list and index, determine if there is a non-empty, non-blank, non-null value at that index.
+     * @param dataList the list to search through
+     * @param index the index to look at the value
+     * @return true if the value at the provided index is non-null, non-empty and non-blank
+     */
     public static boolean isExistingValue(List<String> dataList, int index) {
         return !(dataList.get(index).isEmpty()) && !(dataList.get(index) == null) && !(dataList.get(index).isBlank());
     }
-
+    
+    /**
+     * Extract a double value from provided list of strings at provided index
+     * @param dataList the list to extract value from
+     * @param index the index to extract value from
+     * @return the double value at the provided index in the list, NaN if cannot be parsed or index is not in list
+     */
     public static double extractDoubleValueFromList(List<String> dataList, int index) {
         try {
-            if(Utils.isExistingValue(dataList, index)) {
+            if (Utils.isExistingValue(dataList, index)) {
                 return Double.parseDouble(dataList.get(index));
             } else {
                 return Double.NaN;
@@ -39,10 +57,16 @@ public class Utils {
             return Double.NaN;
         }
     }
-
+    
+    /**
+     * Extract a string value from provided list of strings at provided index
+     * @param dataList the list to extract value from
+     * @param index the index to extract value from
+     * @return the string value at the provided index in the list, blank if index is not in list
+     */
     public static String extractStringValueFromList(List<String> dataList, int index) {
         try {
-            if(Utils.isExistingValue(dataList, index)) {
+            if (Utils.isExistingValue(dataList, index)) {
                 return dataList.get(index);
             } else {
                 return "";
@@ -51,7 +75,13 @@ public class Utils {
             return "";
         }
     }
-
+    
+    /**
+     * Extract a zipcode value from provided list of strings at provided index
+     * @param dataList the list to extract value from
+     * @param index the index to extract value from
+     * @return the zipcode value at the provided index in the list, blank if index is not in list or if zipcode is not property formatted
+     */
     public static String extractZipcodeValueFromList(List<String> dataList, int index) {
         if(Utils.isExistingValue(dataList, index)) {
             String zipcode = dataList.get(index);
@@ -61,7 +91,12 @@ public class Utils {
             return "";
         }
     }
-
+    
+    /**
+     * Extract a zipcode value from string
+     * @param zipcode the zipcode in raw string format
+     * @return the zipcode as a string cleaned up, blank string if not property formatted
+     */
     public static String extractZipCodeValue(String zipcode) {
         if(zipcode.length() >= 5) {
             zipcode = zipcode.substring(0, 5);
@@ -75,25 +110,41 @@ public class Utils {
             return "";
         }
     }
-
+    
+    /**
+     * Extract a zipcode value from provided object
+     * @param object the object to extract zipcode from
+     * @return the property formatted zipcode if valid, blank string if not
+     */
     public static String extractZipcodeValueFromJSON(JSONObject object) {
         try {
             String zipcode = object.get("zip_code").toString();
-
             return extractZipCodeValue(zipcode);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return "";
         }
     }
-
+    
+    /**
+     * Extract a double value from object given propertyName
+     * @param object the object to extract double from
+     * @param propertyName the property name within the object to extract double from
+     * @return the double value if propertyName is within object and parseable as double, NaN if either is not true
+     */
     public static double extractDoubleFromJSON(JSONObject object, String propertyName) {
         try {
             return Double.parseDouble(object.get(propertyName).toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             return Double.NaN;
         }
     }
-
+    
+    /**
+     * Extract a string value from provided object given propertyName
+     * @param object the object to extract string from
+     * @param propertyName the property name within the object to extract from
+     * @return the string if the propertyName is within object, blank string if not
+     */
     public static String extractStringFromJSON(JSONObject object, String propertyName) {
         try {
             return object.get(propertyName).toString();

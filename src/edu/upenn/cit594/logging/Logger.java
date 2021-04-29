@@ -40,7 +40,7 @@ public class Logger {
      * Sets file to log to.
      * Can only be set once.
      * @param filename filename of file to log to
-     * @throws IllegalStateException if this method is invoked more than once
+     * @throws IllegalStateException if this method is invoked more than once in an attempt to reset filename
      */
     public static void setFilename(String filename) throws IllegalStateException {
         if (filename == null) throw new IllegalArgumentException("Filename must be non-null.");

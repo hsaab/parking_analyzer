@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class CommandLineUserInterface {
+// User interface for command line use of Processor
+public class CommandLineUserInterface implements UserInterface {
     private Scanner in;
     private Processor processor;
     private Command[] commands;
@@ -165,7 +166,7 @@ public class CommandLineUserInterface {
     
     /**
      * Represents a command that the user could choose on command line.
-     * Must override execute with the action to perform.
+     * Must override execute method with the specified action when creating the command.
      */
     private abstract static class Command {
         private String name;
