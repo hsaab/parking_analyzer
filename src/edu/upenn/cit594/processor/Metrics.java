@@ -8,8 +8,13 @@ public abstract class Metrics<T> {
         this.sum = 0;
         this.count = 0;
     }
+    
+    public Metrics(double sum, int count) {
+        this.sum = sum;
+        this.count = count;
+    }
 
-    Metrics(T firstValue) {
+    public Metrics(T firstValue) {
         this.sumAndCountMetric(firstValue);
     }
 

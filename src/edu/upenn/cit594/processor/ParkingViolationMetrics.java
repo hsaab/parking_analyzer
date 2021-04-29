@@ -13,7 +13,8 @@ public class ParkingViolationMetrics extends Metrics<ParkingViolation> {
 
     @Override
     public void sumAndCountMetric(ParkingViolation parkingViolation) {
+        if (Double.isNaN(parkingViolation.getFine())) return;
         this.count++;
-        this.sum += parkingViolation.fine;
+        this.sum += parkingViolation.getFine();
     }
 }

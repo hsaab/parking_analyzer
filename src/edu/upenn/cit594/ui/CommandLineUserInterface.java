@@ -1,6 +1,6 @@
 package edu.upenn.cit594.ui;
 
-import edu.upenn.cit594.data.Area;
+import edu.upenn.cit594.data.*;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.Processor;
 import edu.upenn.cit594.utils.Utils;
@@ -10,12 +10,16 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class CommandLineUserInterface {
+// User interface for command line use of Processor
+public class CommandLineUserInterface implements UserInterface {
     private Scanner in;
     private Processor processor;
     private Command[] commands;
     
-    
+    /**
+     * Constructor
+     * @param processor the Processor handling the calculations/logic
+     */
     public CommandLineUserInterface(Processor processor) {
         this.in = new Scanner(System.in);
         this.processor = processor;
@@ -25,10 +29,13 @@ public class CommandLineUserInterface {
     /**
      * Starts the user interface.
      */
-    public void start() {
-        int choice = promptUserForValidChoice();
-        commands[choice].execute();
-        start(); // prompt again when execution of choice is complete
+    public void run() {
+        int choice;
+        do {
+            choice = promptUserForValidChoice();
+            commands[choice].execute();
+        } while (choice != 0);
+        in.close();
     }
     
     /**
@@ -37,20 +44,27 @@ public class CommandLineUserInterface {
      * @return the choice of calculation as represented by an integer the user has provided
      */
     private int promptUserForValidChoice() {
-        int choice;
-        do {
-            printChoices();
-            String input = in.nextLine();
-            Logger.getLogger().log(input);
-            while (!Utils.isOnlyDigits(input)) {
-                System.out.println(input + " includes non-digits. Please enter a whole number only.");
-                input = in.nextLine();
-                Logger.getLogger().log(input);
-            }
-            choice = Integer.parseInt(input);
-        } while (choice < 0 || choice >= commands.length);
+        printChoices();
+        String input = in.nextLine();
+        Logger.getLogger().log(input);
+        
+        if (!Utils.isOnlyDigits(input) || !isValidCommand(Integer.parseInt(input))) {
+            System.out.println(input + " is not a valid digit. Nice try. Goodbye.");
+            return 0;
+        }
+        int choice = Integer.parseInt(input);
         
         return choice;
+    }
+    
+    /**
+     * Determines if the provided choice number corresponds to a valid command.
+     * That is, choice is a valid index within commands field.
+     * @param choice the number of command to run in commands
+     * @return if the integer representing choice is valid
+     */
+    private boolean isValidCommand(int choice) {
+        return choice >= 0 && choice < commands.length;
     }
     
     /**
@@ -60,11 +74,9 @@ public class CommandLineUserInterface {
      */
     private String promptUserForValidZipcode() {
         String zip;
-        do {
-            System.out.print("Please provide a 5 digit zipcode: ");
-            zip = in.nextLine();
-            Logger.getLogger().log(zip);
-        } while (zip.length() != 5 || !Utils.isOnlyDigits(zip));
+        System.out.print("Please provide a 5 digit zipcode: ");
+        zip = in.nextLine();
+        Logger.getLogger().log(zip);
         
         return zip;
     }
@@ -113,7 +125,6 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Running...");
 
                         double result = processor.calculateAverageMarketValueByZipcode(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
@@ -123,7 +134,6 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Running...");
 
                         double result = processor.calculateAverageLivableAreaByZipcode(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
@@ -133,7 +143,6 @@ public class CommandLineUserInterface {
                     @Override
                     public void execute() {
                         String zipcode = promptUserForValidZipcode();
-                        System.out.println("Running...");
 
                         double result = processor.calculateResidentialMarketValuePerCapita(zipcode);
                         System.out.println(Utils.truncateDecimalsInValue(result, 0));
@@ -142,17 +151,41 @@ public class CommandLineUserInterface {
                 new Command("Calculate fine count by zipcode sorted by highest market value per capita") {
                     @Override
                     public void execute() {
-                        System.out.println("Running...");
                         DecimalFormat formatter = new DecimalFormat("$#,###.00");
                         Set<Area> areaByHighestMarketValuePerCapita = processor.calculateFineCountForHighestMarketValuePerCapitaAreas();
 
                         for(Area area : areaByHighestMarketValuePerCapita) {
-                            System.out.println("Zipcode: " + area.zipcode + "  market value: " + formatter.format(area.marketValuePerCapita) + "  number of fines: " + area.fineCount);
+                            System.out.println("Zipcode: " + area.getZipcode() + "  market value: " + formatter.format(area.getMarketValuePerCapita()) + "  number of fines: " + area.getFineCount());
                         }
                     }
                 }
         };
         
         return commands;
+    }
+    
+    /**
+     * Represents a command that the user could choose on command line.
+     * Must override execute method with the specified action when creating the command.
+     */
+    private abstract static class Command {
+        private String name;
+        
+        public Command(String name) {
+            this.name = name;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
+        @Override
+        public String toString() {
+            return "Command{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+        
+        public abstract void execute();
     }
 }

@@ -8,6 +8,7 @@ import edu.upenn.cit594.utils.Utils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class DataManagementTester {
     }
 
     @Test
-    void testAreaDelimitedFileReader() {
+    void testAreaDelimitedFileReader() throws FileNotFoundException {
         AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
                 "population.txt", false, " "
         );
@@ -30,16 +31,16 @@ public class DataManagementTester {
         Map<String, Area> dataStore = areaDelimitedFileReader.dataStore.getData();
 
         assertEquals(dataStore.size(), 48);
-        assertEquals(dataStore.get("19102").population, 4705);
-        assertEquals(dataStore.get("19102").zipcode, "19102");
-        assertEquals(dataStore.get("19118").population, 9808);
-        assertEquals(dataStore.get("19118").zipcode, "19118");
+        assertEquals(dataStore.get("19102").getPopulation(), 4705);
+        assertEquals(dataStore.get("19102").getZipcode(), "19102");
+        assertEquals(dataStore.get("19118").getPopulation(), 9808);
+        assertEquals(dataStore.get("19118").getZipcode(), "19118");
     }
 
     @Test
-    void testBadAreaDelimitedFileReader() {
+    void testBadAreaDelimitedFileReader() throws FileNotFoundException {
         AreaDelimitedFileReader areaDelimitedFileReader = new AreaDelimitedFileReader(
-                "population-bad.txt", false, " "
+                "population-bad1.txt", false, " "
         );
 
         areaDelimitedFileReader.read();
@@ -47,15 +48,15 @@ public class DataManagementTester {
         Map<String, Area> dataStore = areaDelimitedFileReader.dataStore.getData();
 
         assertEquals(dataStore.size(), 48);
-        assertEquals(dataStore.get("19102").population, Double.NaN);
-        assertEquals(dataStore.get("19102").zipcode, "19102");
+        assertEquals(dataStore.get("19102").getPopulation(), Double.NaN);
+        assertEquals(dataStore.get("19102").getZipcode(), "19102");
 
-        assertEquals(dataStore.get("19103").population, Double.NaN);
-        assertEquals(dataStore.get("19103").zipcode, "19103");
+        assertEquals(dataStore.get("19103").getPopulation(), Double.NaN);
+        assertEquals(dataStore.get("19103").getZipcode(), "19103");
     }
 
     @Test
-    void testBadPropertyDelimitedFileReader() {
+    void testBadPropertyDelimitedFileReader() throws FileNotFoundException {
         // Played with some of the values to make them bad
         PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader(
                 "properties-test-bad.csv", true, ","
@@ -65,51 +66,51 @@ public class DataManagementTester {
 
         List<Property> dataStore = propertyDelimitedFileReader.dataStore.getData();
 
-        assertEquals(dataStore.get(0).marketValue, 0.0);
-        assertEquals(dataStore.get(0).zipcode, "19147");
-        assertEquals(dataStore.get(0).totalLivableArea, 0.0);
+        assertEquals(dataStore.get(0).getMarketValue(), 0.0);
+        assertEquals(dataStore.get(0).getZipcode(), "19147");
+        assertEquals(dataStore.get(0).getTotalLivableArea(), 0.0);
 
-        assertEquals(dataStore.get(3).marketValue, Double.NaN);
-        assertEquals(dataStore.get(3).zipcode, "19104");
-        assertEquals(dataStore.get(3).totalLivableArea, 0.0);
+        assertEquals(dataStore.get(3).getMarketValue(), Double.NaN);
+        assertEquals(dataStore.get(3).getZipcode(), "19104");
+        assertEquals(dataStore.get(3).getTotalLivableArea(), 0.0);
 
-        assertEquals(dataStore.get(4).marketValue, Double.NaN);
-        assertEquals(dataStore.get(4).zipcode, "");
-        assertEquals(dataStore.get(4).totalLivableArea, Double.NaN);
+        assertEquals(dataStore.get(4).getMarketValue(), Double.NaN);
+        assertEquals(dataStore.get(4).getZipcode(), "");
+        assertEquals(dataStore.get(4).getTotalLivableArea(), Double.NaN);
     }
 
     @Test
-    void testBadParkingViolationJSON() {
+    void testBadParkingViolationJSON() throws FileNotFoundException {
         ParkingViolationJSONFileReader parkingViolationJSONFileReader = new ParkingViolationJSONFileReader("parking-bad.json");
 
         parkingViolationJSONFileReader.read();
 
         List<ParkingViolation> dataStore = parkingViolationJSONFileReader.dataStore.getData();
 
-        assertEquals(dataStore.get(0).date, null);
-        assertEquals(dataStore.get(0).fine, Double.NaN);
-        assertEquals(dataStore.get(0).violation, "345");
-        assertEquals(dataStore.get(0).plateId, "1322731");
-        assertEquals(dataStore.get(0).state, "PA");
+        assertEquals(dataStore.get(0).getDate(), null);
+        assertEquals(dataStore.get(0).getFine(), Double.NaN);
+        assertEquals(dataStore.get(0).getViolation(), "345");
+        assertEquals(dataStore.get(0).getPlateId(), "1322731");
+        assertEquals(dataStore.get(0).getState(), "PA");
         assertEquals(dataStore.get(0).ticketNumber, "2905938");
         assertEquals(dataStore.get(0).zipcode, "19104");
     }
 
     @Test
-    void testBadParkingViolationDelimitedFileReader() {
-        ParkingViolationDelimitedFileReader parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
-                "parking-bad.csv", false, ","
+    void testBadParkingViolationDelimitedFileReader() throws FileNotFoundException {
+        ParkingViolationJSONFileReader parkingViolationReader = new ParkingViolationJSONFileReader(
+                "parking-bad.json"
         );
 
-        parkingViolationDelimitedFileReader.read();
+        parkingViolationReader.read();
 
-        List<ParkingViolation> dataStore = parkingViolationDelimitedFileReader.dataStore.getData();
+        List<ParkingViolation> dataStore = parkingViolationReader.dataStore.getData();
 
-        assertEquals(dataStore.get(0).date, null);
-        assertEquals(dataStore.get(0).fine, Double.NaN);
-        assertEquals(dataStore.get(0).violation, "METER EXPIRED CC");
-        assertEquals(dataStore.get(0).plateId, "1322731");
-        assertEquals(dataStore.get(0).state, "PA");
+        assertEquals(dataStore.get(0).getDate(), null);
+        assertEquals(dataStore.get(0).getFine(), Double.NaN);
+        assertEquals(dataStore.get(0).getViolation(), "METER EXPIRED CC");
+        assertEquals(dataStore.get(0).getPlateId(), "1322731");
+        assertEquals(dataStore.get(0).getState(), "PA");
         assertEquals(dataStore.get(0).ticketNumber, "2905938");
         assertEquals(dataStore.get(0).zipcode, "19104");
 
@@ -117,7 +118,7 @@ public class DataManagementTester {
     }
 
     @Test
-    void testParkingViolationDelimitedFileReader() {
+    void testParkingViolationDelimitedFileReader() throws FileNotFoundException {
         ParkingViolationDelimitedFileReader parkingViolationDelimitedFileReader = new ParkingViolationDelimitedFileReader(
                 "parking.csv", false, ","
         );
@@ -128,25 +129,25 @@ public class DataManagementTester {
 
         assertEquals(dataStore.size(), 25559);
 
-        assertEquals(dataStore.get(0).date, Utils.getDateTime("2013-04-03T15:15:00Z"));
-        assertEquals(dataStore.get(0).fine, 36);
-        assertEquals(dataStore.get(0).violation, "METER EXPIRED CC");
-        assertEquals(dataStore.get(0).plateId, "1322731");
-        assertEquals(dataStore.get(0).state, "PA");
+        assertEquals(dataStore.get(0).getDate(), Utils.getDateTime("2013-04-03T15:15:00Z"));
+        assertEquals(dataStore.get(0).getFine(), 36);
+        assertEquals(dataStore.get(0).getViolation(), "METER EXPIRED CC");
+        assertEquals(dataStore.get(0).getPlateId(), "1322731");
+        assertEquals(dataStore.get(0).getState(), "PA");
         assertEquals(dataStore.get(0).ticketNumber, "2905938");
         assertEquals(dataStore.get(0).zipcode, "19104");
 
-        assertEquals(dataStore.get(25558).date, Utils.getDateTime("2013-12-09T10:10:00Z"));
-        assertEquals(dataStore.get(25558).fine, 26);
-        assertEquals(dataStore.get(25558).violation, "METER EXPIRED");
-        assertEquals(dataStore.get(25558).plateId, "204335");
-        assertEquals(dataStore.get(25558).state, "NJ");
+        assertEquals(dataStore.get(25558).getDate(), Utils.getDateTime("2013-12-09T10:10:00Z"));
+        assertEquals(dataStore.get(25558).getFine(), 26);
+        assertEquals(dataStore.get(25558).getViolation(), "METER EXPIRED");
+        assertEquals(dataStore.get(25558).getPlateId(), "204335");
+        assertEquals(dataStore.get(25558).getState(), "NJ");
         assertEquals(dataStore.get(25558).ticketNumber, "2931538");
         assertEquals(dataStore.get(25558).zipcode, "19147");
     }
 
     @Test
-    void testPropertyDelimitedFileReader() {
+    void testPropertyDelimitedFileReader() throws FileNotFoundException {
         // THIS TESTS TO MAKE SURE WE CAN GET THROUGH THE ORIGINAL FILE
         PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader(
                 "properties.csv", true, ","
@@ -156,11 +157,11 @@ public class DataManagementTester {
 
         List<Property> dataStore = propertyDelimitedFileReader.dataStore.getData();
 
-        assertEquals(dataStore.get(0).zipcode, "19148");
+        assertEquals(dataStore.get(0).getZipcode(), "19148");
     }
 
     @Test
-    void testPropertyDelimitedFileReaderLite() {
+    void testPropertyDelimitedFileReaderLite() throws FileNotFoundException {
         // THIS TESTS TO MAKE SURE WE ARE PARSING THROUGH THE LISTS OK
         PropertyDelimitedFileReader propertyDelimitedFileReader = new PropertyDelimitedFileReader(
                 "properties-test.csv", true, ","
@@ -170,21 +171,21 @@ public class DataManagementTester {
 
         List<Property> dataStore = propertyDelimitedFileReader.dataStore.getData();
 
-        assertEquals(dataStore.get(0).marketValue, 0.0);
-        assertEquals(dataStore.get(0).zipcode, "19147");
-        assertEquals(dataStore.get(0).totalLivableArea, 0.0);
+        assertEquals(dataStore.get(0).getMarketValue(), 0.0);
+        assertEquals(dataStore.get(0).getZipcode(), "19147");
+        assertEquals(dataStore.get(0).getTotalLivableArea(), 0.0);
 
-        assertEquals(dataStore.get(3).marketValue, Double.NaN);
-        assertEquals(dataStore.get(3).zipcode, "19104");
-        assertEquals(dataStore.get(3).totalLivableArea, 0.0);
+        assertEquals(dataStore.get(3).getMarketValue(), Double.NaN);
+        assertEquals(dataStore.get(3).getZipcode(), "19104");
+        assertEquals(dataStore.get(3).getTotalLivableArea(), 0.0);
 
-        assertEquals(dataStore.get(4).marketValue, 264800.0);
-        assertEquals(dataStore.get(4).zipcode, "19148");
-        assertEquals(dataStore.get(4).totalLivableArea, 1800.0);
+        assertEquals(dataStore.get(4).getMarketValue(), 264800.0);
+        assertEquals(dataStore.get(4).getZipcode(), "19148");
+        assertEquals(dataStore.get(4).getTotalLivableArea(), 1800.0);
     }
 
     @Test
-    void testParkingViolationJSONFileReader() {
+    void testParkingViolationJSONFileReader() throws FileNotFoundException {
         ParkingViolationJSONFileReader parkingViolationJSONFileReader = new ParkingViolationJSONFileReader("parking.json");
 
         parkingViolationJSONFileReader.read();
@@ -194,19 +195,19 @@ public class DataManagementTester {
         assertEquals(dataStore.size(), 25559);
 
         assertEquals(dataStore.get(0).ticketNumber, "2905938");
-        assertEquals(dataStore.get(0).plateId, "1322731");
-        assertEquals(dataStore.get(0).date, Utils.getDateTime("2013-04-03T15:15:00Z"));
+        assertEquals(dataStore.get(0).getPlateId(), "1322731");
+        assertEquals(dataStore.get(0).getDate(), Utils.getDateTime("2013-04-03T15:15:00Z"));
         assertEquals(dataStore.get(0).zipcode, "19104");
-        assertEquals(dataStore.get(0).violation, "METER EXPIRED CC");
-        assertEquals(dataStore.get(0).fine, 36);
-        assertEquals(dataStore.get(0).state, "PA");
+        assertEquals(dataStore.get(0).getViolation(), "METER EXPIRED CC");
+        assertEquals(dataStore.get(0).getFine(), 36);
+        assertEquals(dataStore.get(0).getState(), "PA");
 
         assertEquals(dataStore.get(25558).ticketNumber, "2931538");
-        assertEquals(dataStore.get(25558).plateId, "204335");
-        assertEquals(dataStore.get(25558).date, Utils.getDateTime("2013-12-09T10:10:00Z"));
+        assertEquals(dataStore.get(25558).getPlateId(), "204335");
+        assertEquals(dataStore.get(25558).getDate(), Utils.getDateTime("2013-12-09T10:10:00Z"));
         assertEquals(dataStore.get(25558).zipcode, "19147");
-        assertEquals(dataStore.get(25558).violation, "METER EXPIRED");
-        assertEquals(dataStore.get(25558).fine, 26);
-        assertEquals(dataStore.get(25558).state, "NJ");
+        assertEquals(dataStore.get(25558).getViolation(), "METER EXPIRED");
+        assertEquals(dataStore.get(25558).getFine(), 26);
+        assertEquals(dataStore.get(25558).getState(), "NJ");
     }
 }

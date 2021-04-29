@@ -4,14 +4,17 @@ import edu.upenn.cit594.data.ParkingViolation;
 import edu.upenn.cit594.utils.Utils;
 import org.json.simple.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+// Reads in a JSON file of parking violation values and converts to a List of ParkingViolation objects
 public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingViolation>> {
-    public ParkingViolationJSONFileReader(String fileName) {
+    public ParkingViolationJSONFileReader(String fileName) throws FileNotFoundException {
         super(fileName);
     }
+    
     
     @Override
     public void initializeDataStore() {
@@ -21,10 +24,14 @@ public class ParkingViolationJSONFileReader extends JSONFileReader<List<ParkingV
     @Override
     public void updateDataStore(JSONObject rawParkingViolation) {
         ParkingViolation convertedObject = createParkingViolation(rawParkingViolation);
-
         dataStore.getData().add(convertedObject);
     }
-
+    
+    /**
+     * Parses the provided dataList into a ParkingViolation.
+     * @param rawObject the jsonObject representing the ParkingViolation
+     * @return the ParkingViolation being parsed from this data
+     */
     public ParkingViolation createParkingViolation(JSONObject rawObject) {
         Date date = Utils.getDateTime(rawObject.get("date").toString());
         double fine = Utils.extractDoubleFromJSON(rawObject, "fine");
