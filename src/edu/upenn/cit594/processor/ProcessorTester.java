@@ -154,7 +154,7 @@ public class ProcessorTester {
     void testCalculateFineCountForHighestMarketValuePerCapitaAreas() throws FileNotFoundException {
         Set<Area> areaByMarketValue = processorCsv.calculateFineCountForHighestMarketValuePerCapitaAreas();
 
-        //assertEquals(29, areaByMarketValue.size());
+        assertEquals(48, areaByMarketValue.size());
 
         Iterator<Area> iterator = areaByMarketValue.iterator();
         double prevMarketValuePerCapita = Double.POSITIVE_INFINITY;

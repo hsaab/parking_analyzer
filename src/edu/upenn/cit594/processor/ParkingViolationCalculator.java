@@ -11,6 +11,12 @@ public class ParkingViolationCalculator {
     protected Map<String, Double> zipcodeToFineMap = new TreeMap<>();
     protected Map<String, ParkingViolationMetrics> zipcodeToParkingViolationMetricsMap = new TreeMap<>();
 
+    /**
+     * calculates the total fines per capita across all zip codes
+     * @param areaMap map of each zipcode to population
+     * @param violations list of all parking violations
+     * @return a map that has zipcode to fines per capita
+     */
     protected Map<String,Double> calculateTotalFinesPerCapita(Map<String, Area> areaMap, List<ParkingViolation> violations) {
         Map<String, ParkingViolationMetrics> zipcodeToParkingViolationMetricsMap = buildParkingViolationMetricsByZipcode(areaMap, violations);
 
@@ -28,6 +34,12 @@ public class ParkingViolationCalculator {
         return this.zipcodeToFineMap;
     }
 
+    /**
+     * Builds a map of zipcodes to parking violation metrics (sum and count)
+     * @param areaMap map of each zipcode to population
+     * @param violations list of all parking violations
+     * @return a map of zip codes to ParkingViolationMetrics (with sum and count)
+     */
     protected Map<String, ParkingViolationMetrics> buildParkingViolationMetricsByZipcode(Map<String, Area> areaMap, List<ParkingViolation> violations) {
         for (ParkingViolation violation : violations) {
             if (areaMap.containsKey(violation.zipcode) && violation.getState().equals("PA")) { // if the zipcode of this violation isn't in areaMap, skip it

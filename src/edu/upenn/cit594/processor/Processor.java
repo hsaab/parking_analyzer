@@ -1,6 +1,8 @@
 package edu.upenn.cit594.processor;
 
-import edu.upenn.cit594.data.*;
+import edu.upenn.cit594.data.Area;
+import edu.upenn.cit594.data.ParkingViolation;
+import edu.upenn.cit594.data.Property;
 import edu.upenn.cit594.datamanagement.DataStore;
 import edu.upenn.cit594.datamanagement.Reader;
 
@@ -19,7 +21,13 @@ public class Processor {
     private AreaCalculator areaCalculator;
 
     private Map<Reader<?>, DataStore<?>> readerToDataStoreMap;
-    
+
+    /**
+     * Constructor
+     * @param parkingViolationReader reader that has parking violation data
+     * @param propertyReader reader that has property data
+     * @param areaReader reader that has zipcode and population data
+     */
     public Processor(Reader<List<ParkingViolation>> parkingViolationReader, Reader<List<Property>> propertyReader, Reader<Map<String,Area>> areaReader) {
         this.parkingViolationReader = parkingViolationReader;
         this.propertyReader = propertyReader;
@@ -32,7 +40,10 @@ public class Processor {
         readerToDataStoreMap = new HashMap<>();
     }
 
-    // AREA CALCULATIONS
+    /**
+     * Sums all populations for all zipcodes
+     * @return all populations as a sum
+     */
     public int sumPopulations() {
         if(areaCalculator.getPopulationSum() != 0) {
             return areaCalculator.getPopulationSum();
@@ -43,7 +54,10 @@ public class Processor {
         return areaCalculator.sumPopulations(areaMap);
     }
 
-    // PARKING VIOLATION CALCULATIONS
+    /**
+     * calculates the total fines per capita across all zip codes
+     * @return a map that has zipcode to fines per capita
+     */
     public Map<String,Double> calculateTotalFinesPerCapita() {
         if(!parkingViolationCalculator.zipcodeToFineMap.isEmpty()) {
             return parkingViolationCalculator.zipcodeToFineMap;
@@ -55,6 +69,10 @@ public class Processor {
         return parkingViolationCalculator.calculateTotalFinesPerCapita(areaMap, violations);
     }
 
+    /**
+     * Sorts by highest market value per capita to lowest and presents the fine count
+     * @return set of areas that have fine count sorted by market value per capita
+     */
     public Set<Area> calculateFineCountForHighestMarketValuePerCapitaAreas() {
         if(!propertyCalculator.areaSetByMarketValue.isEmpty()) {
             return propertyCalculator.areaSetByMarketValue;
@@ -69,7 +87,11 @@ public class Processor {
         return propertyCalculator.calculateFineCountForHighestMarketValuePerCapitaAreas(properties, areaMap, zipcodeToParkingViolationMetricsMap);
     }
 
-    // PROPERTY CALCULATIONS
+    /**
+     * Calculates the average market value for a given zipcode
+     * @param zipcode zipcode entered by the user
+     * @return average market value for the zipcode
+     */
     public double calculateAverageMarketValueByZipcode(String zipcode) {
         if(propertyCalculator.averageMarketValueByZipcode.containsKey(zipcode)) {
             return propertyCalculator.averageMarketValueByZipcode.get(zipcode);
@@ -80,6 +102,11 @@ public class Processor {
        return propertyCalculator.calculateAverageMarketValueByZipcode(zipcode, properties);
     }
 
+    /**
+     * Calculates the average livable area for a given zipcode
+     * @param zipcode zipcode entered by the user
+     * @return average livable area for the zipcode
+     */
     public double calculateAverageLivableAreaByZipcode(String zipcode) {
         if(propertyCalculator.averageLivableAreaByZipcode.containsKey(zipcode)) {
             return propertyCalculator.averageLivableAreaByZipcode.get(zipcode);
@@ -90,6 +117,11 @@ public class Processor {
         return propertyCalculator.calculateAverageLivableAreaByZipcode(zipcode, properties);
     }
 
+    /**
+     * Calculates the residential market value per capita for a given zipcode
+     * @param zipcode zipcode entered by the user
+     * @return residential market value per capita for a given zipcode
+     */
     public double calculateResidentialMarketValuePerCapita(String zipcode) {
         if(propertyCalculator.marketValuePerCapitaByZipcode.containsKey(zipcode)) {
             return propertyCalculator.marketValuePerCapitaByZipcode.get(zipcode);

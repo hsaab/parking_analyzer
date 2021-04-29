@@ -7,6 +7,11 @@ import java.util.Map;
 public class AreaCalculator {
     private int populationSum = 0;
 
+    /**
+     * Parses the provided dataList into a Property.
+     * @param areaMap map of zipcode to area
+     * @return an int describing the population sum
+     */
     protected int sumPopulations(Map<String, Area> areaMap) {
         if (getPopulationSum() != 0) {
             return getPopulationSum();
